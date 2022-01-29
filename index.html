@@ -1,12 +1,51 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Progress Check</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tower Progression</title>
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
+        <!--progress makes blocks fall down, building tall buildings, randomly fall(so may not build, can upgrade to random less)
+            Upgrade for skins and speed, use randomization for weather or have various landscapes(slow down travel)
+            Have missions, monsters in between to play few game to earn xp or coins-->
+        <div id="background"></div>
+        <!--Objects randomly show up, click to plus progress, draw green arrows to show upgrade-->
+        <canvas id="upgrade"></canvas>
+        <!--Info of xp, money, level, etc-->
+        <div id="showInfo">
+            <strong>Progression Info</strong>
+        </div>
+        <div id="showTheme">
+            <strong>Theme</strong>
+        </div>
+        <div id="info"></div>
+        <div id="theme"></div>
+        <div id="grid"></div>
         <!--Draws player-->
         <canvas id="playerCanvas"></canvas>
+        <!--Used to cover up the canvas-->
+        <div id="coverGrid"></div>
+        <!--Shows block of the tower-->
+        <div id="blockInfo"></div>
+        <!--Shows height of the tower-->
+        <div id="heightInfo"></div>
         <!--Use a progress bar to determine xp-->
+        <progress id="progressBar" max="100" value="0"></progress>
+        <div id="barValue"></div>
+        <!--Announces the upgrade-->
+        <div id="announce"></div>
+        <!--Tells the player what he gets when leveled up-->
+        <div id="levelUpPage"></div>
+        <!--Change character skins, background themes-->
+        <div id="showAchievement">
+            <strong>Achievements</strong>
+        </div>
+        <div id="achievements">
+            
+        </div>
+        <div id="h" style="position: absolute; font-size: 4em;"></div>
+        <script src="progress.js"></script>
     </body>
 </html>
