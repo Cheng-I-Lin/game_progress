@@ -69,7 +69,6 @@ body{
     background-color: rgb(231, 231, 231);
     border-left: black 2px solid;
     border-right: black 2px solid;
-    border-top: black 2px solid;
 }
 #playerCanvas{
     position: absolute;
@@ -83,6 +82,15 @@ body{
     background-color: beige;
     border-top: black 2px solid;
 }
+#coverGridTop{
+    position: absolute;
+    width: 40%;
+    height: 30%;
+    left: 30%;
+    top: 0%;
+    background-color: beige;
+    border-bottom: black 2px solid;
+}
 #blockInfo{
     position: absolute;
     width: 15%;
@@ -91,6 +99,12 @@ body{
     top: 30%;
     background-color: rgb(231, 231, 231);
     border: black 2px solid;
+    text-align: center;
+    font-size: 1.5em;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 #heightInfo{
     position: absolute;
@@ -100,6 +114,36 @@ body{
     top: 30%;
     background-color: rgb(231, 231, 231);
     border: black 2px solid;
+    text-align: center;
+    font-size: 1.5em;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+#slideUp{
+    width: 0; 
+    height: 0; 
+    position: absolute;
+    left: 24%;
+    top: 15%;
+    border-top: 60px solid transparent;
+    border-bottom: 60px solid black;
+    border-left: 60px solid transparent;
+    border-right: 60px solid transparent;
+    transition: border-bottom 0.7s;
+}
+#slideDown{
+    width: 0; 
+    height: 0; 
+    position: absolute;
+    left: 24%;
+    top: 65%;
+    border-bottom: 60px solid transparent;
+    border-top: 60px solid black;
+    border-left: 60px solid transparent;
+    border-right: 60px solid transparent;
+    transition: border-top 0.7s;
 }
 #progressBar{
     width: 25%;
@@ -154,4 +198,17 @@ body{
     opacity: 0.65;
     text-align: center;
     transition: all 1s;
+}
+#achievementsGrid{
+    position: absolute;
+    width: 100%;
+    height: 40%;
+    left: 0%;
+    bottom: -40%;
+    text-align: center;
+    transition: all 1s;
+}
+.button{
+    width: 100px;
+    height: 50px;
 }

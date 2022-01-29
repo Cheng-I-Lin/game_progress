@@ -26,11 +26,21 @@
         <!--Draws player-->
         <canvas id="playerCanvas"></canvas>
         <!--Used to cover up the canvas-->
+        <div id="coverGridTop"></div>
         <div id="coverGrid"></div>
         <!--Shows block of the tower-->
-        <div id="blockInfo"></div>
+        <div id="blockInfo">
+            <strong>Total Blocks:</strong><br>
+            <span id="totalBlock"></span>
+        </div>
         <!--Shows height of the tower-->
-        <div id="heightInfo"></div>
+        <div id="heightInfo">
+            <br><strong>Record Height:</strong><br>
+            <span id="recordHeight"></span><br>
+            <!--Use these arrows to control canvas top-->
+            <div id="slideUp" onmousedown="blockMoveUp(event)"></div>
+            <div id="slideDown" onmousedown="blockMoveDown(event)"></div>
+        </div>
         <!--Use a progress bar to determine xp-->
         <progress id="progressBar" max="100" value="0"></progress>
         <div id="barValue"></div>
@@ -42,8 +52,12 @@
         <div id="showAchievement">
             <strong>Achievements</strong>
         </div>
-        <div id="achievements">
-            
+        <div id="achievements"></div>
+        <!--Use this so opacity won't affect contents inside achievements page-->
+        <div id="achievementsGrid">
+            <button class="button" id="topButton" onclick="goTop();">Top</button>
+            <button class="button" id="bottomButton" onclick="goBottom();">Bottom</button>
+            <button class="button" id="pauseButton" onclick="pauseGame();">Pause</button>
         </div>
         <div id="h" style="position: absolute; font-size: 4em;"></div>
         <script src="progress.js"></script>
