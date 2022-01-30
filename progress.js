@@ -1,5 +1,5 @@
 class Block{
-    constructor(x,y,color="red",falling=true,width=blockSize,height=blockHeight,speed=1) {
+    constructor(x,y,color="black",falling=true,width=blockSize,height=blockHeight,speed=1,type=blockType) {
         this.x=x;
         this.y=y;
         this.color=color;
@@ -7,6 +7,7 @@ class Block{
         this.width=width;
         this.height=height;
         this.speed=speed;
+        this.type=type;
     }
     //Make the blocks fall
     fall(){
@@ -21,6 +22,7 @@ class Block{
 }
 var blockSize=50;
 var blockHeight=50;
+var blockType="Regular";
 var gameTime=22;
 var pause=false;
 var progressTime=25;
@@ -31,7 +33,6 @@ var canvasBottom=0;
 const grid=document.getElementById("grid");
 const achievement=document.getElementById("achievements");
 const showAchievement=document.getElementById("showAchievement");
-const achievementsGrid=document.getElementById("achievementsGrid");
 //Sets the cover grid lower due to border width(-1)
 document.getElementById("coverGrid").style.top=grid.offsetHeight+grid.offsetTop-1+"px";
 document.getElementById("coverGrid").style.width=grid.offsetWidth+"px";
@@ -40,11 +41,9 @@ showAchievement.addEventListener("click", function(){
     if(achievement.style.bottom=="0%"){
         showAchievement.style.bottom="0%";
         achievement.style.bottom="-40%";
-        achievementsGrid.style.bottom="-40%";
     } else{
         showAchievement.style.bottom="40%";
         achievement.style.bottom="0%";
-        achievementsGrid.style.bottom="0%";
     }
 });
 const theme=document.getElementById("theme");
@@ -88,7 +87,7 @@ function drawGame(){
     canvas.width = grid.offsetWidth;
     canvas.height = grid.offsetHeight+Math.abs(max-grid.offsetHeight-addHeight);
     canvasBottom=canvas.offsetHeight;
-    document.getElementById("h").innerHTML=slideCanvasTop;
+    //document.getElementById("h").innerHTML=slideCanvasTop;
     ds.clearRect(canvas.left,canvas.top,canvas.width,canvas.height);
     for(let i=0;i<allBlock.length;i++){
         //Draws meteor only if it's not dead
@@ -96,6 +95,22 @@ function drawGame(){
             ds.fillStyle=allBlock[i].color;
             ds.fillRect(allBlock[i].x,allBlock[i].y,allBlock[i].width,allBlock[i].height);
         }
+    }
+} 
+const blockInfo=document.getElementById("blockInfo");
+function drawBlock(){
+    let canvas=document.getElementById("blockCanvas");
+    let ds=canvas.getContext("2d");
+    canvas.style.left=blockInfo.offsetLeft+"px";
+    canvas.style.top=blockInfo.offsetTop+"px";
+    canvas.width = blockInfo.offsetWidth;
+    canvas.height = blockInfo.offsetHeight;
+    ds.clearRect(canvas.left,canvas.top,canvas.width,canvas.height);
+    if(allBlock.length>0){
+        ds.fillStyle=allBlock[0].color;
+        ds.fillRect((blockInfo.offsetWidth-blockSize)/2,(blockInfo.offsetHeight-blockHeight)/2,allBlock[0].width,allBlock[0].height);
+    } else{
+        ds.fillRect((blockInfo.offsetWidth-blockSize)/2,(blockInfo.offsetHeight-blockHeight)/2,blockSize,blockHeight);
     }
 } 
 function game(){
@@ -134,7 +149,9 @@ function game(){
     }
     //Shows the tallest height and the total blocks
     document.getElementById("recordHeight").innerHTML=Math.abs(max-grid.offsetHeight-addHeight);
-    document.getElementById("totalBlock").innerHTML=allBlock.length;
+    document.getElementById("currentHeight").innerHTML=Math.abs(max-grid.offsetHeight-addHeight)+slideCanvasTop;
+    document.getElementById("currentBlock").innerHTML=blockType;
+    document.getElementById("recordBlocks").innerHTML=allBlock.length;
 }
 const slideUp=document.getElementById("slideUp");
 const slideDown=document.getElementById("slideDown");
@@ -167,6 +184,7 @@ function blockMoveUp(event){
     } else if(event.button==2&&slideCanvasTop!=0){
         slideCanvasTop=0;
     }
+    //Maybe can change color when right click slideUp.style.borderBottomColor="red"; but only for a while
 }
 function blockMoveDown(event){
     if(event.button==2&&slideCanvasTop>=max-grid.offsetHeight-addHeight+blockHeight){
@@ -207,7 +225,11 @@ setInterval(function(){
 },progressTime);
 setInterval(function(){
     if(!pause){
+        //Updates the block's width/height on blockInfo page
+        document.getElementById("blockWidth").innerHTML=blockSize;
+        document.getElementById("blockHeight").innerHTML=blockHeight;
         game();
+        drawBlock();
         drawGame();
     }
 },gameTime);

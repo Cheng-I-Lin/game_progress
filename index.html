@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Tower Progression</title>
         <link rel="stylesheet" href="style.css" />
+        <link rel="icon" type="image/png" href=""/>
     </head>
     <body>
         <!--progress makes blocks fall down, building tall buildings, randomly fall(so may not build, can upgrade to random less)
@@ -13,6 +14,12 @@
         <div id="background"></div>
         <!--Objects randomly show up, click to plus progress, draw green arrows to show upgrade-->
         <canvas id="upgrade"></canvas>
+        <div id="grid"></div>
+        <!--Draws player-->
+        <canvas id="playerCanvas"></canvas>
+        <!--Used to cover up the canvas-->
+        <div id="coverGridTop"></div>
+        <div id="coverGrid"></div>
         <!--Info of xp, money, level, etc-->
         <div id="showInfo">
             <strong>Progression Info</strong>
@@ -20,23 +27,44 @@
         <div id="showTheme">
             <strong>Theme</strong>
         </div>
-        <div id="info"></div>
-        <div id="theme"></div>
-        <div id="grid"></div>
-        <!--Draws player-->
-        <canvas id="playerCanvas"></canvas>
-        <!--Used to cover up the canvas-->
-        <div id="coverGridTop"></div>
-        <div id="coverGrid"></div>
+        <div id="info">
+            <strong class="underlineText">Level</strong><strong>: </strong><span id="level">0</span>
+            <!--Creates spacing-->
+            <span style="opacity: 0;">hii</span>
+            <!--Use xp for power ups, level up gain more xp-->
+            <strong class="underlineText">XP</strong><strong>: </strong><span id="xp">0</span>
+            <span style="opacity: 0;">hii</span>
+            <strong class="underlineText">Record Tower Height</strong><strong>: </strong><span id="recordHeight">0</span>
+            <span style="opacity: 0;">hii</span>
+            <strong class="underlineText">Record Total Tower Blocks</strong><strong>: </strong><span id="recordBlocks">0</span>
+            <!--Use opacity to separate each block, use shades to identify which can't be upgraded-->
+            <div id="powerUps"></div>
+            <div id="customBlock"></div>
+        </div>
+        <div id="theme">
+            <button class="button"><strong>Light</strong></button>
+            <button class="button"><strong>Dark</strong></button>
+            <button class="button"><strong>Monotone</strong></button>
+            <button class="button"><strong>Colorful</strong></button>
+            <button class="button"><strong>Ocean Blue</strong></button>
+            <button class="button"><strong>Blazing Flame</strong></button>
+            <button class="button"><strong>Light Gradient</strong></button>
+            <button class="button"><strong>Dark Gradient</strong></button>
+            <button class="button"><strong>Rainbow</strong></button>
+            <button class="button"><strong>Random</strong></button>
+        </div>
         <!--Shows block of the tower-->
         <div id="blockInfo">
-            <strong>Total Blocks:</strong><br>
-            <span id="totalBlock"></span>
+            <br><strong>Current Block:</strong><br>
+            <span id="currentBlock"></span><br><br><br><br><br><br>
+            <strong>Block Width: </strong><span id="blockWidth"></span><br>
+            <strong>Block Height: </strong><span id="blockHeight"></span>
         </div>
+        <canvas id="blockCanvas"></canvas>
         <!--Shows height of the tower-->
         <div id="heightInfo">
-            <br><strong>Record Height:</strong><br>
-            <span id="recordHeight"></span><br>
+            <br><strong>Current Height:</strong><br>
+            <span id="currentHeight"></span><br>
             <!--Use these arrows to control canvas top-->
             <div id="slideUp" onmousedown="blockMoveUp(event)"></div>
             <div id="slideDown" onmousedown="blockMoveDown(event)"></div>
@@ -52,9 +80,8 @@
         <div id="showAchievement">
             <strong>Achievements</strong>
         </div>
-        <div id="achievements"></div>
-        <!--Use this so opacity won't affect contents inside achievements page-->
-        <div id="achievementsGrid">
+        <div id="achievements">
+            <button class="button" id="saveProgess" onclick="save();">Save</button>
             <button class="button" id="topButton" onclick="goTop();">Top</button>
             <button class="button" id="bottomButton" onclick="goBottom();">Bottom</button>
             <button class="button" id="pauseButton" onclick="pauseGame();">Pause</button>
