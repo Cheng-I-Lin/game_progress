@@ -25,7 +25,7 @@ var blockHeight=50;
 var blockType="Regular";
 var gameTime=22;
 var pause=false;
-var progressTime=25;
+var progressTime=500;
 var progressAdd=1;
 //Determines the top of canvas
 var slideCanvasTop=0;
@@ -56,10 +56,10 @@ showInfo.addEventListener("click", function(){
             showTheme.style.display="block";
         },1000);
         showInfo.style.top="0%";
-        info.style.top="-15%";
+        info.style.top="-17.5%";
     } else{
         showTheme.style.display="none";
-        showInfo.style.top="15%";
+        showInfo.style.top="17.5%";
         info.style.top="0%";
     }
 });
@@ -69,10 +69,10 @@ showTheme.addEventListener("click", function(){
             showInfo.style.display="block";
         },1000);
         showTheme.style.top="0%";
-        theme.style.top="-15%";
+        theme.style.top="-17.5%";
     } else{
         showInfo.style.display="none";
-        showTheme.style.top="15%";
+        showTheme.style.top="17.5%";
         theme.style.top="0%";
     }
 });
@@ -207,6 +207,78 @@ function pauseGame(){
         pause=false;
     }
 }
+var button=document.getElementsByClassName("button");
+function changeTheme(id){
+    let themeColor=document.getElementsByClassName("themeColor");
+    let color;
+    let background=document.getElementById("background");
+    let coverGrid=document.getElementById("coverGrid");
+    let coverGridTop=document.getElementById("coverGridTop");
+    for(let i=0;i<button.length;i++){
+        if(i!=id){
+            document.getElementById(i).style.backgroundColor="rgba(255, 255, 255, 0.3)";
+        } else{
+            document.getElementById(i).style.backgroundColor="rgba(255, 255, 255, 0.65)";
+        }
+    }
+    switch(id){
+        case "0":
+            background.style.backgroundColor="beige";
+            coverGrid.style.backgroundColor=background.style.backgroundColor;
+            coverGridTop.style.backgroundColor=background.style.backgroundColor;
+            color="rgb(248, 198, 123)";
+            break;
+        case "1":
+            background.style.backgroundColor="rgb(218, 199, 97)";
+            coverGrid.style.backgroundColor=background.style.backgroundColor;
+            coverGridTop.style.backgroundColor=background.style.backgroundColor;
+            color="rgb(220, 135, 0)";
+            break;
+        case "2":
+            background.style.backgroundColor="rgb(202, 203, 241)";
+            coverGrid.style.backgroundColor=background.style.backgroundColor;
+            coverGridTop.style.backgroundColor=background.style.backgroundColor;
+            color="rgb(138, 130, 203)";
+            break;
+        case "3":
+            background.style.backgroundColor="rgb(231, 87, 87)";
+            coverGrid.style.backgroundColor=background.style.backgroundColor;
+            coverGridTop.style.backgroundColor=background.style.backgroundColor;
+            color="rgb(255, 235, 123)";
+            break;
+        case "4":
+            background.style.backgroundColor="red";
+            coverGrid.style.backgroundColor=background.style.backgroundColor;
+            coverGridTop.style.backgroundColor=background.style.backgroundColor;
+            color="rgb(248, 198, 123)";
+            break;
+        case "5":
+            background.style.backgroundColor="red";
+            coverGrid.style.backgroundColor=background.style.backgroundColor;
+            coverGridTop.style.backgroundColor=background.style.backgroundColor;
+            color="rgb(248, 198, 123)";
+            break;
+        case "6":
+            background.style.backgroundColor="red";
+            coverGrid.style.backgroundColor=background.style.backgroundColor;
+            coverGridTop.style.backgroundColor=background.style.backgroundColor;
+            color="rgb(248, 198, 123)";
+            break;
+        case "7":
+            background.style.backgroundColor="red";
+            coverGrid.style.backgroundColor=background.style.backgroundColor;
+            coverGridTop.style.backgroundColor=background.style.backgroundColor;
+            color="rgb(248, 198, 123)";
+            break;
+        default: 
+            break;
+    }
+    for(let j=0;j<themeColor.length;j++){
+        themeColor[j].style.backgroundColor=color;
+    }
+}
+//Set light theme to original theme
+document.getElementById("0").style.backgroundColor="rgba(255, 255, 255, 0.65)";
 const progressBar=document.getElementById("progressBar");
 const barValue=document.getElementById("barValue");
 setInterval(function(){
@@ -224,6 +296,10 @@ setInterval(function(){
     }
 },progressTime);
 setInterval(function(){
+    //Updates the color
+    grid.style.backgroundColor="rgb("+document.getElementById("blockColor1").value+","+document.getElementById("blockColor2").value+","+document.getElementById("blockColor3").value+")";
+    blockInfo.style.backgroundColor=grid.style.backgroundColor;
+    document.getElementById("heightInfo").style.backgroundColor=grid.style.backgroundColor;
     if(!pause){
         //Updates the block's width/height on blockInfo page
         document.getElementById("blockWidth").innerHTML=blockSize;
@@ -231,6 +307,7 @@ setInterval(function(){
         game();
         drawBlock();
         drawGame();
+        //document.getElementById("h").innerHTML=document.getElementById('h').id;
     }
 },gameTime);
 //Can make block fall faster, change block width/height, make progress run faster, random block x less, add block color/page theme

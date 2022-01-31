@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Tower Progression</title>
         <link rel="stylesheet" href="style.css" />
+        <!--Used source from w3school-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
         <link rel="icon" type="image/png" href=""/>
     </head>
     <body>
@@ -21,13 +23,13 @@
         <div id="coverGridTop"></div>
         <div id="coverGrid"></div>
         <!--Info of xp, money, level, etc-->
-        <div id="showInfo">
+        <div class="themeColor" id="showInfo">
             <strong>Progression Info</strong>
         </div>
-        <div id="showTheme">
+        <div class="themeColor" id="showTheme">
             <strong>Theme</strong>
         </div>
-        <div id="info">
+        <div class="themeColor" id="info">
             <strong class="underlineText">Level</strong><strong>: </strong><span id="level">0</span>
             <!--Creates spacing-->
             <span style="opacity: 0;">hii</span>
@@ -41,17 +43,19 @@
             <div id="powerUps"></div>
             <div id="customBlock"></div>
         </div>
-        <div id="theme">
-            <button class="button"><strong>Light</strong></button>
-            <button class="button"><strong>Dark</strong></button>
-            <button class="button"><strong>Monotone</strong></button>
-            <button class="button"><strong>Colorful</strong></button>
-            <button class="button"><strong>Ocean Blue</strong></button>
-            <button class="button"><strong>Blazing Flame</strong></button>
-            <button class="button"><strong>Light Gradient</strong></button>
-            <button class="button"><strong>Dark Gradient</strong></button>
-            <button class="button"><strong>Rainbow</strong></button>
-            <button class="button"><strong>Random</strong></button>
+        <div class="themeColor" id="theme"><br>
+            <button class="button" id="0" onclick="changeTheme(this.id);"><strong>Light</strong></button>
+            <button class="button" id="1" onclick="changeTheme(this.id);"><strong>Dark</strong></button>
+            <button class="button" id="2" onclick="changeTheme(this.id);"><strong>Ocean Blue</strong></button>
+            <button class="button" id="3" onclick="changeTheme(this.id);"><strong>Blazing Flame</strong></button>
+            <button class="button" id="4" onclick="changeTheme(this.id);"><strong>Light Gradient</strong></button>
+            <button class="button" id="5" onclick="changeTheme(this.id);"><strong>Dark Gradient</strong></button>
+            <button class="button" id="6" onclick="changeTheme(this.id);"><strong>Rainbow</strong></button>
+            <button class="button" id="7" onclick="changeTheme(this.id);"><strong>Random</strong></button><br><br>
+            <!--Changes grid color-->
+            <input type="range" min="0" max="255" value="231" class="slider" id="blockColor1">
+            <input type="range" min="0" max="255" value="231" class="slider" id="blockColor2">
+            <input type="range" min="0" max="255" value="231" class="slider" id="blockColor3">
         </div>
         <!--Shows block of the tower-->
         <div id="blockInfo">
@@ -71,22 +75,22 @@
         </div>
         <!--Use a progress bar to determine xp-->
         <progress id="progressBar" max="100" value="0"></progress>
-        <div id="barValue"></div>
+        <div id="barValue">0%</div>
         <!--Announces the upgrade-->
         <div id="announce"></div>
         <!--Tells the player what he gets when leveled up-->
         <div id="levelUpPage"></div>
         <!--Change character skins, background themes-->
-        <div id="showAchievement">
+        <div class="themeColor" id="showAchievement">
             <strong>Achievements</strong>
         </div>
-        <div id="achievements">
-            <button class="button" id="saveProgess" onclick="save();">Save</button>
-            <button class="button" id="topButton" onclick="goTop();">Top</button>
-            <button class="button" id="bottomButton" onclick="goBottom();">Bottom</button>
-            <button class="button" id="pauseButton" onclick="pauseGame();">Pause</button>
+        <div class="themeColor" id="achievements">
+            <button class="achievementButton" id="saveProgess" onclick="save();">Save</button>
+            <button class="achievementButton" id="topButton" onclick="goTop();">Top</button>
+            <button class="achievementButton" id="bottomButton" onclick="goBottom();">Bottom</button>
+            <button class="achievementButton" id="pauseButton" onclick="pauseGame();">Pause</button>
         </div>
-        <div id="h" style="position: absolute; font-size: 4em;"></div>
+        <div id="h" style="position: absolute; font-size: 4em;">sssssss</div>
         <script src="progress.js"></script>
     </body>
 </html>
