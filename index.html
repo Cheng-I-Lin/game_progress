@@ -41,7 +41,6 @@
             <strong class="underlineText">Record Total Tower Blocks</strong><strong>: </strong><span id="recordBlocks">0</span>
             <!--Use opacity to separate each block, use shades to identify which can't be upgraded-->
             <div id="powerUps"></div>
-            <div id="customBlock"></div>
         </div>
         <div class="themeColor" id="theme"><br>
             <button class="button" id="0" onclick="changeTheme(this.id);"><strong>Light</strong></button>
@@ -85,12 +84,33 @@
             <strong>Achievements</strong>
         </div>
         <div class="themeColor" id="achievements">
+            <!--Player unlocks new block at new height-->
+            <div id="customBlock">
+                <span class="navigationLinks" id="10" onclick="blockCustomization(this.id);"><i class="fa fa-question"></i></span>
+                <span class="navigationLinks" id="11" onclick="blockCustomization(this.id);"><i class="fa fa-question"></i></span>
+                <span class="navigationLinks" id="12" onclick="blockCustomization(this.id);"><i class="fa fa-question"></i></span>
+                <span class="navigationLinks" id="13" onclick="blockCustomization(this.id);"><i class="fa fa-question"></i></span>
+                <span class="navigationLinks" id="14" onclick="blockCustomization(this.id);"><i class="fa fa-question"></i></span>
+                <span class="navigationLinks" id="15" onclick="blockCustomization(this.id);"><i class="fa fa-question"></i></span>
+                <span class="navigationLinks" id="16" onclick="blockCustomization(this.id);"><i class="fa fa-question"></i></span>
+                <span class="navigationLinks" id="17" onclick="blockCustomization(this.id);"><i class="fa fa-question"></i></span>
+                <span class="navigationLinks" id="18" onclick="blockCustomization(this.id);"><i class="fa fa-question"></i></span>
+                <span class="navigationLinks" id="19" onclick="blockCustomization(this.id);"><i class="fa fa-question"></i></span>
+                <span class="navigationLinks" id="20" onclick="blockCustomization(this.id);"><i class="fa fa-question"></i></span>
+                <span class="navigationLinks" id="21" onclick="blockCustomization(this.id);"><i class="fa fa-question"></i></span>
+                <span class="navigationLinks" id="22" onclick="blockCustomization(this.id);"><i class="fa fa-question"></i></span>
+                <span class="navigationLinks" id="23" onclick="blockCustomization(this.id);"><i class="fa fa-question"></i></span>
+                <span class="navigationLinks" id="24" onclick="blockCustomization(this.id);"><i class="fa fa-question"></i></span>
+            </div><br>
             <button class="achievementButton" id="saveProgess" onclick="save();">Save</button>
             <button class="achievementButton" id="topButton" onclick="goTop();">Top</button>
             <button class="achievementButton" id="bottomButton" onclick="goBottom();">Bottom</button>
             <button class="achievementButton" id="pauseButton" onclick="pauseGame();">Pause</button>
         </div>
-        <div id="h" style="position: absolute; font-size: 4em;">sssssss</div>
+        <div id="tooltip">
+            <strong><span id="blockType">sssssssssss</span></strong>
+        </div>
+        <div id="h" style="position: absolute; font-size: 4em;"></div>
         <script src="progress.js"></script>
     </body>
 </html>

@@ -40,9 +40,9 @@ document.getElementById("coverGridTop").style.width=grid.offsetWidth+"px";
 showAchievement.addEventListener("click", function(){
     if(achievement.style.bottom=="0%"){
         showAchievement.style.bottom="0%";
-        achievement.style.bottom="-40%";
+        achievement.style.bottom="-28%";
     } else{
-        showAchievement.style.bottom="40%";
+        showAchievement.style.bottom="28%";
         achievement.style.bottom="0%";
     }
 });
@@ -207,6 +207,10 @@ function pauseGame(){
         pause=false;
     }
 }
+//Shows tooltip when over question span
+document.addEventListener("mouseover", function(){
+
+});
 var button=document.getElementsByClassName("button");
 function changeTheme(id){
     let themeColor=document.getElementsByClassName("themeColor");
