@@ -73,8 +73,8 @@ body{
 }
 /* Add a color to the active/current link */
 .navigationLinks:active {
-    background-color: rgb(49, 135, 233);
-    color: white;
+    background-color: rgba(255, 255, 255, 0.85);
+    color: black;
 }
 #theme{
     position: absolute;
@@ -319,7 +319,8 @@ body{
     border-bottom-right-radius: 20px;
     color: white;
     text-align: center;
-    font-size: 1.5em;
+    font-size: 1.25em;
+    display: none;
 }
 #h{
     background-color: rgb(231, 87, 87);

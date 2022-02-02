@@ -41,6 +41,8 @@ showAchievement.addEventListener("click", function(){
     if(achievement.style.bottom=="0%"){
         showAchievement.style.bottom="0%";
         achievement.style.bottom="-28%";
+        //Closes tooltip when close achievement page
+        tooltip.style.display="none";
     } else{
         showAchievement.style.bottom="28%";
         achievement.style.bottom="0%";
@@ -208,9 +210,74 @@ function pauseGame(){
     }
 }
 //Shows tooltip when over question span
-document.addEventListener("mouseover", function(){
-
-});
+var tooltip=document.getElementById("tooltip");
+function blockCustomization(id){
+    let block=document.getElementById(id);
+    let text=document.getElementById("blockType");
+    tooltip.style.display="block";
+    switch(id){
+        case "10":
+            tooltip.style.left="0px";
+            break;
+        case "24":
+            tooltip.style.left=window.innerWidth-tooltip.offsetWidth+"px";
+            break;
+        default:
+            tooltip.style.left=block.offsetLeft+(block.offsetWidth-tooltip.offsetWidth)/2+"px";
+            break;
+    }
+    //Change tooltip text
+    switch(id){
+        case "10":
+            text.innerHTML="<strong>Regular</strong><br>Initial Block At Height 0";
+            break;
+        case "11":
+            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 100";
+            break;
+        case "12":
+            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 200";
+            break;
+        case "13":
+            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 500";
+            break;
+        case "14":
+            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 1000";
+            break;
+        case "15":
+            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 5000";
+            break;
+        case "16":
+            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 7500";
+            break;
+        case "17":
+            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 10000";
+            break;
+        case "18":
+            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 20000";
+            break;
+        case "19":
+            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 45000";
+            break;
+        case "20":
+            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 75000";
+            break;
+        case "21":
+            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 100000";
+            break;
+        case "22":
+            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 500000";
+            break;
+        case "23":
+            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 750000";
+            break;
+        case "24":
+            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 1000000";
+            break;
+        default:
+            break;
+    }
+    tooltip.style.top=achievement.offsetTop-tooltip.offsetHeight+"px";
+}
 var button=document.getElementsByClassName("button");
 function changeTheme(id){
     let themeColor=document.getElementsByClassName("themeColor");
