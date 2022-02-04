@@ -30,6 +30,7 @@ var progressAdd=1;
 //Determines the top of canvas
 var slideCanvasTop=0;
 var canvasBottom=0;
+var recordHeight=0;
 const grid=document.getElementById("grid");
 const achievement=document.getElementById("achievements");
 const showAchievement=document.getElementById("showAchievement");
@@ -114,6 +115,27 @@ function drawBlock(){
     } else{
         ds.fillRect((blockInfo.offsetWidth-blockSize)/2,(blockInfo.offsetHeight-blockHeight)/2,blockSize,blockHeight);
     }
+}
+const customBlock=document.getElementById("customBlock");
+const navigationLinks=document.getElementsByClassName("navigationLinks");
+function drawBlockType(){
+    let canvas=document.getElementById("blockTypeCanvas");
+    let ds=canvas.getContext("2d");
+    canvas.style.left=customBlock.offsetLeft+"px";
+    canvas.style.top=customBlock.offsetTop+"px";
+    canvas.width = customBlock.offsetWidth;
+    canvas.height = customBlock.offsetHeight;
+    ds.clearRect(canvas.left,canvas.top,canvas.width,canvas.height);
+    for(let i=0;i<navigationLinks.length;i++){
+        //Draw different types of block
+        switch(i){
+            case 0:
+                break;
+            default:
+                break;
+        }
+    }
+    ds.fillRect(10,10,50,50);
 } 
 function game(){
     for(let i=0;i<allBlock.length;i++){
@@ -150,6 +172,7 @@ function game(){
         }
     }
     //Shows the tallest height and the total blocks
+    recordHeight=Math.abs(max-grid.offsetHeight-addHeight);
     document.getElementById("recordHeight").innerHTML=Math.abs(max-grid.offsetHeight-addHeight);
     document.getElementById("currentHeight").innerHTML=Math.abs(max-grid.offsetHeight-addHeight)+slideCanvasTop;
     document.getElementById("currentBlock").innerHTML=blockType;
@@ -232,51 +255,67 @@ function blockCustomization(id){
             text.innerHTML="<strong>Regular</strong><br>Initial Block At Height 0";
             break;
         case "11":
-            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 100";
+            text.innerHTML="<strong>Border Block</strong><br>Unlocks At Height 100";
             break;
         case "12":
-            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 200";
+            text.innerHTML="<strong>Gold Rush</strong><br>Unlocks At Height 200";
             break;
         case "13":
-            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 500";
+            text.innerHTML="<strong>Ice Cold</strong><br>Unlocks At Height 500";
             break;
         case "14":
-            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 1000";
+            text.innerHTML="<strong>Flaming Block</strong><br>Unlocks At Height 1000";
             break;
         case "15":
-            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 5000";
+            text.innerHTML="<strong></strong><br>Unlocks At Height 5000";
             break;
         case "16":
-            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 7500";
+            text.innerHTML="<strong></strong><br>Unlocks At Height 7500";
             break;
         case "17":
-            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 10000";
+            text.innerHTML="<strong>Gemstone</strong><br>Unlocks At Height 10000";
             break;
         case "18":
-            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 20000";
+            //Make it shine
+            text.innerHTML="<strong>Starstruck</strong><br>Unlocks At Height 20000";
             break;
         case "19":
-            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 45000";
+            text.innerHTML="<strong></strong><br>Unlocks At Height 45000";
             break;
         case "20":
-            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 75000";
+            text.innerHTML="<strong></strong><br>Unlocks At Height 75000";
             break;
         case "21":
-            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 100000";
+            //Change a shape inside the block
+            text.innerHTML="<strong>Shapeshifter</strong><br>Unlocks At Height 100000";
             break;
         case "22":
-            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 500000";
+            text.innerHTML="<strong></strong><br>Unlocks At Height 500000";
             break;
         case "23":
-            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 750000";
+            text.innerHTML="<strong></strong><br>Unlocks At Height 750000";
             break;
         case "24":
-            text.innerHTML="<strong>Regular</strong><br>Unlocks At Height 1000000";
+            //Make transition crushing effects
+            text.innerHTML="<strong>Meteorite</strong><br>Unlocks At Height 1000000";
             break;
         default:
             break;
     }
     tooltip.style.top=achievement.offsetTop-tooltip.offsetHeight+"px";
+}
+//The power ups of the game, see if want to use block height as xp
+function fasterFall(){
+
+}
+function fasterProgress(){
+
+}
+function largerWidth(){
+
+}
+function lessRandom(){
+
 }
 var button=document.getElementsByClassName("button");
 function changeTheme(id){
@@ -371,6 +410,88 @@ setInterval(function(){
     grid.style.backgroundColor="rgb("+document.getElementById("blockColor1").value+","+document.getElementById("blockColor2").value+","+document.getElementById("blockColor3").value+")";
     blockInfo.style.backgroundColor=grid.style.backgroundColor;
     document.getElementById("heightInfo").style.backgroundColor=grid.style.backgroundColor;
+    //Closes the question mark
+    for(let i=30;i<45;i++){
+        switch(i){
+            case 30:
+                if(recordHeight>=0){
+                    document.getElementById(i).style.opacity="0";
+                }
+                break;
+            case 31:
+                if(recordHeight>=100){
+                    document.getElementById(i).style.opacity="0";
+                }
+                break;
+            case 32:
+                if(recordHeight>=200){
+                    document.getElementById(i).style.opacity="0";
+                }
+                break;
+            case 33:
+                if(recordHeight>=500){
+                    document.getElementById(i).style.opacity="0";
+                }
+                break;
+            case 34:
+                if(recordHeight>=1000){
+                    document.getElementById(i).style.opacity="0";
+                }
+                break;
+            case 35:
+                if(recordHeight>=5000){
+                    document.getElementById(i).style.opacity="0";
+                }
+                break;
+            case 36:
+                if(recordHeight>=7500){
+                    document.getElementById(i).style.opacity="0";
+                }
+                break;
+            case 37:
+                if(recordHeight>=10000){
+                    document.getElementById(i).style.opacity="0";
+                }
+                break;
+            case 38:
+                if(recordHeight>=20000){
+                    document.getElementById(i).style.opacity="0";
+                }
+                break;
+            case 39:
+                if(recordHeight>=45000){
+                    document.getElementById(i).style.opacity="0";
+                }
+                break;
+            case 40:
+                if(recordHeight>=75000){
+                    document.getElementById(i).style.opacity="0";
+                }
+                break;
+            case 41:
+                if(recordHeight>=100000){
+                    document.getElementById(i).style.opacity="0";
+                }
+                break;
+            case 42:
+                if(recordHeight>=500000){
+                    document.getElementById(i).style.opacity="0";
+                }
+                break;
+            case 43:
+                if(recordHeight>=750000){
+                    document.getElementById(i).style.opacity="0";
+                }
+                break;
+            case 44:
+                if(recordHeight>=1000000){
+                    document.getElementById(i).style.opacity="0";
+                }
+                break;
+            default:
+                break;
+        }
+    }
     if(!pause){
         //Updates the block's width/height on blockInfo page
         document.getElementById("blockWidth").innerHTML=blockSize;
@@ -378,6 +499,7 @@ setInterval(function(){
         game();
         drawBlock();
         drawGame();
+        drawBlockType();
         //document.getElementById("h").innerHTML=document.getElementById('h').id;
     }
 },gameTime);
