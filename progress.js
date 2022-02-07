@@ -1,8 +1,7 @@
 class Block{
-    constructor(x,y,color="black",falling=true,width=blockSize,height=blockHeight,speed=1,type=blockType) {
+    constructor(x,y,falling=true,width=blockSize,height=blockHeight,speed=1,type=blockType) {
         this.x=x;
         this.y=y;
-        this.color=color;
         this.falling=falling;
         this.width=width;
         this.height=height;
@@ -25,7 +24,7 @@ var blockHeight=50;
 var blockType="Regular";
 var gameTime=22;
 var pause=false;
-var progressTime=500;
+var progressTime=50;
 var progressAdd=1;
 //Determines the top of canvas
 var slideCanvasTop=0;
@@ -95,8 +94,86 @@ function drawGame(){
     for(let i=0;i<allBlock.length;i++){
         //Draws meteor only if it's not dead
         if(!pause){
-            ds.fillStyle=allBlock[i].color;
+            switch(allBlock[i].type){
+                case "Regular":
+                    ds.fillStyle="black";
+                    break;
+                case "Border Block":
+                    ds.fillStyle="white";
+                    break;
+                case "Gold Rush":
+                    ds.fillStyle="gold";
+                    break;
+                case "Ice Cold":
+                    break;
+                case "Flaming Block":
+                    break;
+                case "":
+                    break;
+                case "":
+                    break;
+                case "Gemstone":
+                    break;
+                case "Starstruck":
+                    break;
+                case "":
+                    break;
+                case "":
+                    break;
+                case "Shapeshifter":
+                    break;
+                case "":
+                    break;
+                case "":
+                    break;
+                case "Meteorite":
+                    break;
+                default:
+                    ds.fillStyle="red";
+                    break;
+            }
             ds.fillRect(allBlock[i].x,allBlock[i].y,allBlock[i].width,allBlock[i].height);
+            switch(allBlock[i].type){
+                case "Border Block":
+                    ds.beginPath();
+                    ds.moveTo(allBlock[i].x+1.5,allBlock[i].y+1.5);
+                    ds.lineTo(allBlock[i].width+allBlock[i].x-1.5,allBlock[i].y+1.5);
+                    ds.lineTo(allBlock[i].width+allBlock[i].x-1.5,allBlock[i].height+allBlock[i].y-1.5);
+                    ds.lineTo(allBlock[i].x+1.5,allBlock[i].height+allBlock[i].y-1.5);
+                    ds.closePath();
+                    ds.strokeStyle="black";
+                    ds.lineWidth=3;
+                    ds.stroke();
+                    break;
+                case "Gold Rush":
+                    break;
+                case "Ice Cold":
+                    break;
+                case "Flaming Block":
+                    break;
+                case "":
+                    break;
+                case "":
+                    break;
+                case "Gemstone":
+                    break;
+                case "Starstruck":
+                    break;
+                case "":
+                    break;
+                case "":
+                    break;
+                case "Shapeshifter":
+                    break;
+                case "":
+                    break;
+                case "":
+                    break;
+                case "Meteorite":
+                    break;
+                default:
+                    break;
+            }
         }
     }
 } 
@@ -110,8 +187,87 @@ function drawBlock(){
     canvas.height = blockInfo.offsetHeight;
     ds.clearRect(canvas.left,canvas.top,canvas.width,canvas.height);
     if(allBlock.length>0){
-        ds.fillStyle=allBlock[0].color;
-        ds.fillRect((blockInfo.offsetWidth-blockSize)/2,(blockInfo.offsetHeight-blockHeight)/2,allBlock[0].width,allBlock[0].height);
+        let offsetX=(blockInfo.offsetWidth-blockSize)/2;
+        let offsetY=(blockInfo.offsetHeight-blockHeight)/2;
+        switch(blockType){
+            case "Regular":
+                ds.fillStyle="black";
+                break;
+            case "Border Block":
+                ds.fillStyle="white";
+                break;
+            case "Gold Rush":
+                ds.fillStyle="gold";
+                break;
+            case "Ice Cold":
+                break;
+            case "Flaming Block":
+                break;
+            case "":
+                break;
+            case "":
+                break;
+            case "Gemstone":
+                break;
+            case "Starstruck":
+                break;
+            case "":
+                break;
+            case "":
+                break;
+            case "Shapeshifter":
+                break;
+            case "":
+                break;
+            case "":
+                break;
+            case "Meteorite":
+                break;
+            default:
+                break;
+        }
+        ds.fillRect(offsetX,offsetY,blockSize,blockHeight);
+        switch(blockType){
+            case "Border Block":
+                ds.beginPath();
+                ds.moveTo(offsetX+1.5,offsetY+1.5);
+                ds.lineTo(blockSize+offsetX-1.5,offsetY+1.5);
+                ds.lineTo(blockSize+offsetX-1.5,blockHeight+offsetY-1.5);
+                ds.lineTo(offsetX+1.5,blockHeight+offsetY-1.5);
+                ds.closePath();
+                ds.strokeStyle="black";
+                ds.lineWidth=3;
+                ds.stroke();
+                break;
+            case "Gold Rush":
+                break;
+            case "Ice Cold":
+                break;
+            case "Flaming Block":
+                break;
+            case "":
+                break;
+            case "":
+                break;
+            case "Gemstone":
+                break;
+            case "Starstruck":
+                break;
+            case "":
+                break;
+            case "":
+                break;
+            case "Shapeshifter":
+                break;
+            case "":
+                break;
+            case "":
+                break;
+            case "Meteorite":
+                break;
+            default:
+                break;
+        }
     } else{
         ds.fillRect((blockInfo.offsetWidth-blockSize)/2,(blockInfo.offsetHeight-blockHeight)/2,blockSize,blockHeight);
     }
@@ -127,15 +283,93 @@ function drawBlockType(){
     canvas.height = customBlock.offsetHeight;
     ds.clearRect(canvas.left,canvas.top,canvas.width,canvas.height);
     for(let i=0;i<navigationLinks.length;i++){
-        //Draw different types of block
-        switch(i){
-            case 0:
-                break;
-            default:
-                break;
+        let offsetX=navigationLinks[i].offsetLeft+(navigationLinks[i].offsetWidth-50)/2;
+        let offsetY=(navigationLinks[i].offsetHeight-50)/2;
+        //Draws a block in the middle of each text only if question mark is gone
+        if(document.getElementById(i+30).style.opacity=="0"){
+            //Draw different types of block
+            switch(i){
+                case 0:
+                    ds.fillStyle="black";
+                    //Remember to change block color based on blocktype
+                    break;
+                case 1:
+                    ds.fillStyle="white";
+                    break;
+                case 2:
+                    ds.fillStyle="gold";
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    break;
+                case 9:
+                    break;
+                case 10:
+                    break;
+                case 11:
+                    break;
+                case 12:
+                    break;
+                case 13:
+                    break;
+                case 14:
+                    break;
+                default:
+                    break;
+            }
+            ds.fillRect(offsetX,offsetY,50,50);
+            switch(i){
+                case 1:
+                    ds.beginPath();
+                    ds.moveTo(offsetX+1.5,offsetY+1.5);
+                    ds.lineTo(blockSize+offsetX-1.5,offsetY+1.5);
+                    ds.lineTo(blockSize+offsetX-1.5,blockHeight+offsetY-1.5);
+                    ds.lineTo(offsetX+1.5,blockHeight+offsetY-1.5);
+                    ds.closePath();
+                    ds.strokeStyle="black";
+                    ds.lineWidth=3;
+                    ds.stroke();
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    break;
+                case 9:
+                    break;
+                case 10:
+                    break;
+                case 11:
+                    break;
+                case 12:
+                    break;
+                case 13:
+                    break;
+                case 14:
+                    break;
+                default:
+                    break;
+            }
         }
     }
-    ds.fillRect(10,10,50,50);
 } 
 function game(){
     for(let i=0;i<allBlock.length;i++){
@@ -234,10 +468,16 @@ function pauseGame(){
 }
 //Shows tooltip when over question span
 var tooltip=document.getElementById("tooltip");
+var clickedId;
 function blockCustomization(id){
     let block=document.getElementById(id);
     let text=document.getElementById("blockType");
-    tooltip.style.display="block";
+    if(tooltip.style.display=="block"&&clickedId==id){
+        tooltip.style.display="none";
+    } else{
+        tooltip.style.display="block";
+    }
+    clickedId=id;
     switch(id){
         case "10":
             tooltip.style.left="0px";
@@ -252,52 +492,97 @@ function blockCustomization(id){
     //Change tooltip text
     switch(id){
         case "10":
-            text.innerHTML="<strong>Regular</strong><br>Initial Block At Height 0";
+            text.innerHTML="<strong>Regular</strong><br>Initial Block At Height 0"; 
+            if(recordHeight>=0){
+                blockType="Regular";
+            }
             break;
         case "11":
             text.innerHTML="<strong>Border Block</strong><br>Unlocks At Height 100";
+            if(recordHeight>=100){
+                blockType="Border Block";
+            }
             break;
         case "12":
             text.innerHTML="<strong>Gold Rush</strong><br>Unlocks At Height 200";
+            if(recordHeight>=200){
+                blockType="Gold Rush";
+            }
             break;
         case "13":
             text.innerHTML="<strong>Ice Cold</strong><br>Unlocks At Height 500";
+            if(recordHeight>=500){
+                blockType="Ice Cold";
+            }
             break;
         case "14":
             text.innerHTML="<strong>Flaming Block</strong><br>Unlocks At Height 1000";
+            if(recordHeight>=1000){
+                blockType="Flaming Block";
+            }
             break;
         case "15":
             text.innerHTML="<strong></strong><br>Unlocks At Height 5000";
+            if(recordHeight>=5000){
+                blockType="";
+            }
             break;
         case "16":
             text.innerHTML="<strong></strong><br>Unlocks At Height 7500";
+            if(recordHeight>=7500){
+                blockType="";
+            }
             break;
         case "17":
             text.innerHTML="<strong>Gemstone</strong><br>Unlocks At Height 10000";
+            if(recordHeight>=10000){
+                blockType="Gemstone";
+            }
             break;
         case "18":
             //Make it shine
             text.innerHTML="<strong>Starstruck</strong><br>Unlocks At Height 20000";
+            if(recordHeight>=20000){
+                blockType="Starstruck";
+            }
             break;
         case "19":
             text.innerHTML="<strong></strong><br>Unlocks At Height 45000";
+            if(recordHeight>=45000){
+                blockType="";
+            }
             break;
         case "20":
             text.innerHTML="<strong></strong><br>Unlocks At Height 75000";
+            if(recordHeight>=75000){
+                blockType="";
+            }
             break;
         case "21":
             //Change a shape inside the block
             text.innerHTML="<strong>Shapeshifter</strong><br>Unlocks At Height 100000";
+            if(recordHeight>=100000){
+                blockType="Shapeshifter";
+            }
             break;
         case "22":
             text.innerHTML="<strong></strong><br>Unlocks At Height 500000";
+            if(recordHeight>=500000){
+                blockType="";
+            }
             break;
         case "23":
             text.innerHTML="<strong></strong><br>Unlocks At Height 750000";
+            if(recordHeight>=750000){
+                blockType="";
+            }
             break;
         case "24":
             //Make transition crushing effects
             text.innerHTML="<strong>Meteorite</strong><br>Unlocks At Height 1000000";
+            if(recordHeight>=1000000){
+                blockType="Meteorite";
+            }
             break;
         default:
             break;
@@ -500,7 +785,7 @@ setInterval(function(){
         drawBlock();
         drawGame();
         drawBlockType();
-        //document.getElementById("h").innerHTML=document.getElementById('h').id;
+        //document.getElementById("h").innerHTML=allBlock[0].type;
     }
 },gameTime);
 //Can make block fall faster, change block width/height, make progress run faster, random block x less, add block color/page theme
