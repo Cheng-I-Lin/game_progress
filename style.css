@@ -46,9 +46,39 @@ body{
     height: 70%;
     left: 0%;
     bottom: 0%;
-    background-color: rgb(0, 0, 0);
     text-align: center;
-    font-size: 1.5em;
+    font-size: 0.85em;
+}
+#fasterProgress{
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+}
+#fasterFall{
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    left: 25%;
+    top: 0%;
+}
+#longerWidth{
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    left: 50%;
+    top: 0%;
+}
+#tallerHeight{
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    left: 75%;
+    top: 0%;
+}
+.description{
+    font-size: 0.65em;
 }
 #customBlock{
     position: absolute;

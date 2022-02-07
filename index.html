@@ -40,7 +40,29 @@
             <span style="opacity: 0;">hii</span>
             <strong class="underlineText">Record Total Tower Blocks</strong><strong>: </strong><span id="recordBlocks">0</span>
             <!--Use opacity to separate each block, use shades to identify which can't be upgraded-->
-            <div id="powerUps"></div>
+            <div id="powerUps">
+                <div id="fasterProgress" onclick="fasterProgress();">
+                    <strong>Progression Boost (Lvl. <span id="fasterProgressLevel">1</span>)</strong><br>
+                    <img><br>
+                    <!--Used to keep count of points, access it in js using powerup name + XP-->
+                    <span class="description">Proliferates the charge time of the progress bar (<strong><span id="fasterProgressXP">1</span>XP</strong>)</span>
+                </div>
+                <div id="fasterFall" onclick="fasterFall();">
+                    <strong>Gravitational Pull (Lvl. <span id="fasterFallLevel">1</span>)</strong><br>
+                    <img><br>
+                    <span class="description">Accelerates the falling velcoity of each block (<strong><span id="fasterFallXP">1</span>XP</strong>)</span>
+                </div>
+                <div id="longerWidth" onclick="largerWidth();">
+                    <strong>Block Growth: Width (Lvl. <span id="longerWidthLevel">1</span>)</strong><br>
+                    <img><br>
+                    <span class="description">Enlarges and widens the width of the blocks (<strong><span id="longerWidthXP">1</span>XP</strong>)</span>
+                </div>
+                <div id="tallerHeight" onclick="taller();">
+                    <strong>Block Growth: Height (Lvl. <span id="tallerHeightLevel">1</span>)</strong><br>
+                    <img><br>
+                    <span class="description">Increases the height of the blocks (<strong><span id="tallerHeightXP">1</span>XP</strong>)</span>
+                </div>
+            </div>
         </div>
         <div class="themeColor" id="theme"><br>
             <button class="button" id="0" onclick="changeTheme(this.id);"><strong>Light</strong></button>
@@ -103,6 +125,7 @@
                 <span class="navigationLinks" id="23" onclick="blockCustomization(this.id);"><i class="fa fa-question" id="43"></i></span>
                 <span class="navigationLinks" id="24" onclick="blockCustomization(this.id);"><i class="fa fa-question" id="44"></i></span>
             </div><br><br><br><br><br><br><br>
+            <!--Save can be changed to show grid first-->
             <button class="achievementButton" id="saveProgess" onclick="save();">Save</button>
             <button class="achievementButton" id="topButton" onclick="goTop();">Top</button>
             <button class="achievementButton" id="bottomButton" onclick="goBottom();">Bottom</button>

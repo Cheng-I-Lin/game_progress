@@ -1,5 +1,5 @@
 class Block{
-    constructor(x,y,falling=true,width=blockSize,height=blockHeight,speed=1,type=blockType) {
+    constructor(x,y,falling=true,width=blockSize,height=blockHeight,speed=1,type=blockType,bonus=true) {
         this.x=x;
         this.y=y;
         this.falling=falling;
@@ -7,6 +7,7 @@ class Block{
         this.height=height;
         this.speed=speed;
         this.type=type;
+        this.bonus=bonus;
     }
     //Make the blocks fall
     fall(){
@@ -19,6 +20,8 @@ class Block{
         this.falling=false;
     }
 }
+var level=0;
+var xp=0;
 var blockSize=50;
 var blockHeight=50;
 var blockType="Regular";
@@ -26,6 +29,7 @@ var gameTime=22;
 var pause=false;
 var progressTime=50;
 var progressAdd=1;
+var bonusProgress=5;
 //Determines the top of canvas
 var slideCanvasTop=0;
 var canvasBottom=0;
@@ -93,88 +97,86 @@ function drawGame(){
     ds.clearRect(canvas.left,canvas.top,canvas.width,canvas.height);
     for(let i=0;i<allBlock.length;i++){
         //Draws meteor only if it's not dead
-        if(!pause){
-            switch(allBlock[i].type){
-                case "Regular":
-                    ds.fillStyle="black";
-                    break;
-                case "Border Block":
-                    ds.fillStyle="white";
-                    break;
-                case "Gold Rush":
-                    ds.fillStyle="gold";
-                    break;
-                case "Ice Cold":
-                    break;
-                case "Flaming Block":
-                    break;
-                case "":
-                    break;
-                case "":
-                    break;
-                case "Gemstone":
-                    break;
-                case "Starstruck":
-                    break;
-                case "":
-                    break;
-                case "":
-                    break;
-                case "Shapeshifter":
-                    break;
-                case "":
-                    break;
-                case "":
-                    break;
-                case "Meteorite":
-                    break;
-                default:
-                    ds.fillStyle="red";
-                    break;
-            }
-            ds.fillRect(allBlock[i].x,allBlock[i].y,allBlock[i].width,allBlock[i].height);
-            switch(allBlock[i].type){
-                case "Border Block":
-                    ds.beginPath();
-                    ds.moveTo(allBlock[i].x+1.5,allBlock[i].y+1.5);
-                    ds.lineTo(allBlock[i].width+allBlock[i].x-1.5,allBlock[i].y+1.5);
-                    ds.lineTo(allBlock[i].width+allBlock[i].x-1.5,allBlock[i].height+allBlock[i].y-1.5);
-                    ds.lineTo(allBlock[i].x+1.5,allBlock[i].height+allBlock[i].y-1.5);
-                    ds.closePath();
-                    ds.strokeStyle="black";
-                    ds.lineWidth=3;
-                    ds.stroke();
-                    break;
-                case "Gold Rush":
-                    break;
-                case "Ice Cold":
-                    break;
-                case "Flaming Block":
-                    break;
-                case "":
-                    break;
-                case "":
-                    break;
-                case "Gemstone":
-                    break;
-                case "Starstruck":
-                    break;
-                case "":
-                    break;
-                case "":
-                    break;
-                case "Shapeshifter":
-                    break;
-                case "":
-                    break;
-                case "":
-                    break;
-                case "Meteorite":
-                    break;
-                default:
-                    break;
-            }
+        switch(allBlock[i].type){
+            case "Regular":
+                ds.fillStyle="black";
+                break;
+            case "Border Block":
+                ds.fillStyle="white";
+                break;
+            case "Gold Rush":
+                ds.fillStyle="gold";
+                break;
+            case "Ice Cold":
+                break;
+            case "Flaming Block":
+                break;
+            case "":
+                break;
+            case "":
+                break;
+            case "Gemstone":
+                break;
+            case "Starstruck":
+                break;
+            case "":
+                break;
+            case "":
+                break;
+            case "Shapeshifter":
+                break;
+            case "":
+                break;
+            case "":
+                break;
+            case "Meteorite":
+                break;
+            default:
+                ds.fillStyle="red";
+                break;
         }
+        ds.fillRect(allBlock[i].x,allBlock[i].y,allBlock[i].width,allBlock[i].height);
+        switch(allBlock[i].type){
+            case "Border Block":
+                ds.beginPath();
+                ds.moveTo(allBlock[i].x+1.5,allBlock[i].y+1.5);
+                ds.lineTo(allBlock[i].width+allBlock[i].x-1.5,allBlock[i].y+1.5);
+                ds.lineTo(allBlock[i].width+allBlock[i].x-1.5,allBlock[i].height+allBlock[i].y-1.5);
+                ds.lineTo(allBlock[i].x+1.5,allBlock[i].height+allBlock[i].y-1.5);
+                ds.closePath();
+                ds.strokeStyle="black";
+                ds.lineWidth=3;
+                ds.stroke();
+                break;
+            case "Gold Rush":
+                break;
+            case "Ice Cold":
+                break;
+            case "Flaming Block":
+                break;
+            case "":
+                break;
+            case "":
+                break;
+            case "Gemstone":
+                break;
+            case "Starstruck":
+                break;
+            case "":
+                break;
+            case "":
+                break;
+            case "Shapeshifter":
+                break;
+            case "":
+                break;
+            case "":
+                break;
+            case "Meteorite":
+                break;
+            default:
+                break;
+        }   
     }
 } 
 const blockInfo=document.getElementById("blockInfo");
@@ -371,7 +373,42 @@ function drawBlockType(){
         }
     }
 } 
+//When hovers over powerups, background color is lighted to show you can upgrade if there's enough xp(PU=power up)
+const fasterProgressPU=document.getElementById("fasterProgress");
+const fasterFallPU=document.getElementById("fasterFall");
+const longerWidthPU=document.getElementById("longerWidth");
+const tallerHeightPU=document.getElementById("tallerHeight");
+
+fasterProgressPU.addEventListener("mouseover",function(){
+    fasterProgressPU.style.backgroundColor="rgba(255, 255, 255, 0.65)";
+});
+fasterProgressPU.addEventListener("mouseleave",function(){
+    fasterProgressPU.style.backgroundColor="transparent";
+});
+
+fasterFallPU.addEventListener("mouseover",function(){
+    fasterFallPU.style.backgroundColor="rgba(255, 255, 255, 0.65)";
+});
+fasterFallPU.addEventListener("mouseleave",function(){
+    fasterFallPU.style.backgroundColor="transparent";
+});
+
+longerWidthPU.addEventListener("mouseover",function(){
+    longerWidthPU.style.backgroundColor="rgba(255, 255, 255, 0.65)";
+});
+longerWidthPU.addEventListener("mouseleave",function(){
+    longerWidthPU.style.backgroundColor="transparent";
+});
+
+tallerHeightPU.addEventListener("mouseover",function(){
+    tallerHeightPU.style.backgroundColor="rgba(255, 255, 255, 0.65)";
+});
+tallerHeightPU.addEventListener("mouseleave",function(){
+    tallerHeightPU.style.backgroundColor="transparent";
+});
+//Use background color to determine upgrade or not when click
 function game(){
+    let previousHeight=recordHeight;
     for(let i=0;i<allBlock.length;i++){
         if(!pause){
             allBlock[i].fall();
@@ -379,17 +416,30 @@ function game(){
             for(let j=0;j<i;j++){
                 if(allBlock[i].y+allBlock[i].height>=allBlock[j].y&&(allBlock[i].x+allBlock[i].width>=allBlock[j].x&&allBlock[i].x<=allBlock[j].x+allBlock[j].width)){
                     allBlock[i].stopFall();
+                    //Give bonus when stop falling
+                    if(allBlock[i].bonus){
+                        progressBar.value+=+bonusProgress;
+                        allBlock[i].bonus=false;
+                    }
                 }
             }
             //Stop fall when hit ground
             if(i==0){
                 if(allBlock[i].y+allBlock[i].height>=canvasBottom){
                     allBlock[i].stopFall();
+                    if(allBlock[i].bonus){
+                        progressBar.value+=+bonusProgress;
+                        allBlock[i].bonus=false;
+                    }
                 }
             } else{
-                //Pther blocks can't fall below the first one
+                //Pther blocks can't fall below the first one, might move canvas and mess up ground height
                 if(allBlock[i].y>=allBlock[0].y){
                     allBlock[i].stopFall();
+                    if(allBlock[i].bonus){
+                        progressBar.value+=+bonusProgress;
+                        allBlock[i].bonus=false;
+                    }
                 }
             }
             //Move down one block too tall
@@ -407,6 +457,11 @@ function game(){
     }
     //Shows the tallest height and the total blocks
     recordHeight=Math.abs(max-grid.offsetHeight-addHeight);
+    //Add xp if achieve new record height
+    if(previousHeight<recordHeight){
+        xp+=2;
+        level++;
+    }
     document.getElementById("recordHeight").innerHTML=Math.abs(max-grid.offsetHeight-addHeight);
     document.getElementById("currentHeight").innerHTML=Math.abs(max-grid.offsetHeight-addHeight)+slideCanvasTop;
     document.getElementById("currentBlock").innerHTML=blockType;
@@ -590,17 +645,46 @@ function blockCustomization(id){
     tooltip.style.top=achievement.offsetTop-tooltip.offsetHeight+"px";
 }
 //The power ups of the game, see if want to use block height as xp
-function fasterFall(){
-
-}
 function fasterProgress(){
-
+    let PUxp=document.getElementById("fasterProgressXP");
+    let PUlvl=document.getElementById("fasterProgressLevel");
+    //Use parseInt to add xp and level
+    if(xp>=parseInt(PUxp.innerHTML)){
+        xp-=parseInt(PUxp.innerHTML);
+        PUlvl.innerHTML=parseInt(PUlvl.innerHTML)+1;
+        //linear decrease or exponential progressTime-=100;
+    }
+    PUxp.innerHTML=PUlvl.innerHTML;
+}
+function fasterFall(){
+    let PUxp=document.getElementById("fasterFallXP");
+    let PUlvl=document.getElementById("fasterFallLevel");
+    //Use parseInt to add xp and level
+    if(xp>=parseInt(PUxp.innerHTML)){
+        xp-=parseInt(PUxp.innerHTML);
+        PUlvl.innerHTML=parseInt(PUlvl.innerHTML)+1;
+    }
+    PUxp.innerHTML=PUlvl.innerHTML;
 }
 function largerWidth(){
-
+    let PUxp=document.getElementById("longerWidthXP");
+    let PUlvl=document.getElementById("longerWidthLevel");
+    //Use parseInt to add xp and level
+    if(xp>=parseInt(PUxp.innerHTML)){
+        xp-=parseInt(PUxp.innerHTML);
+        PUlvl.innerHTML=parseInt(PUlvl.innerHTML)+1;
+    }
+    PUxp.innerHTML=PUlvl.innerHTML;
 }
-function lessRandom(){
-
+function taller(){
+    let PUxp=document.getElementById("tallerHeightXP");
+    let PUlvl=document.getElementById("tallerHeightLevel");
+    //Use parseInt to add xp and level
+    if(xp>=parseInt(PUxp.innerHTML)){
+        xp-=parseInt(PUxp.innerHTML);
+        PUlvl.innerHTML=parseInt(PUlvl.innerHTML)+1;
+    }
+    PUxp.innerHTML=PUlvl.innerHTML;
 }
 var button=document.getElementsByClassName("button");
 function changeTheme(id){
@@ -781,12 +865,14 @@ setInterval(function(){
         //Updates the block's width/height on blockInfo page
         document.getElementById("blockWidth").innerHTML=blockSize;
         document.getElementById("blockHeight").innerHTML=blockHeight;
-        game();
+        document.getElementById("xp").innerHTML=xp;
+        document.getElementById("level").innerHTML=level;
         drawBlock();
-        drawGame();
         drawBlockType();
         //document.getElementById("h").innerHTML=allBlock[0].type;
     }
+    game();
+    drawGame();
 },gameTime);
 //Can make block fall faster, change block width/height, make progress run faster, random block x less, add block color/page theme
 //Can consider adding tiny screens at sides, one to see block and another for height
