@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="style.css" />
         <!--Used source from w3school-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
-        <link rel="icon" type="image/png" href=""/>
+        <link rel="icon" type="image/png" href="Game_Icon.png"/>
     </head>
     <body>
         <!--progress makes blocks fall down, building tall buildings, randomly fall(so may not build, can upgrade to random less)
@@ -16,7 +16,9 @@
         <div id="background"></div>
         <!--Objects randomly show up, click to plus progress, draw green arrows to show upgrade-->
         <canvas id="upgrade"></canvas>
-        <div id="grid"></div>
+        <div id="grid">
+            <img id="blockImg" src="https://w0.peakpx.com/wallpaper/349/839/HD-wallpaper-icy-snowflakes-icy-snow-snowflakes-ice-blue-winter.jpg">
+        </div>
         <!--Draws player-->
         <canvas id="playerCanvas"></canvas>
         <!--Used to cover up the canvas-->
@@ -113,17 +115,17 @@
                 <span class="navigationLinks" id="11" onclick="blockCustomization(this.id);"><i class="fa fa-question" id="31"></i></span>
                 <span class="navigationLinks" id="12" onclick="blockCustomization(this.id);"><i class="fa fa-question" id="32"></i></span>
                 <span class="navigationLinks" id="13" onclick="blockCustomization(this.id);"><i class="fa fa-question" id="33"></i></span>
-                <span class="navigationLinks" id="14" onclick="blockCustomization(this.id);"><i class="fa fa-question" id="34"></i></span>
-                <span class="navigationLinks" id="15" onclick="blockCustomization(this.id);"><i class="fa fa-question" id="35"></i></span>
-                <span class="navigationLinks" id="16" onclick="blockCustomization(this.id);"><i class="fa fa-question" id="36"></i></span>
-                <span class="navigationLinks" id="17" onclick="blockCustomization(this.id);"><i class="fa fa-question" id="37"></i></span>
-                <span class="navigationLinks" id="18" onclick="blockCustomization(this.id);"><i class="fa fa-question" id="38"></i></span>
-                <span class="navigationLinks" id="19" onclick="blockCustomization(this.id);"><i class="fa fa-question" id="39"></i></span>
-                <span class="navigationLinks" id="20" onclick="blockCustomization(this.id);"><i class="fa fa-question" id="40"></i></span>
-                <span class="navigationLinks" id="21" onclick="blockCustomization(this.id);"><i class="fa fa-question" id="41"></i></span>
-                <span class="navigationLinks" id="22" onclick="blockCustomization(this.id);"><i class="fa fa-question" id="42"></i></span>
-                <span class="navigationLinks" id="23" onclick="blockCustomization(this.id);"><i class="fa fa-question" id="43"></i></span>
-                <span class="navigationLinks" id="24" onclick="blockCustomization(this.id);"><i class="fa fa-question" id="44"></i></span>
+                <span class="navigationLinks" id="14" onclick="blockCustomization(this.id);"><i style="opacity: 0;" class="fa fa-question" id="34"></i></span>
+                <span class="navigationLinks" id="15" onclick="blockCustomization(this.id);"><i style="opacity: 0;" class="fa fa-question" id="35"></i></span>
+                <span class="navigationLinks" id="16" onclick="blockCustomization(this.id);"><i style="opacity: 0;" class="fa fa-question" id="36"></i></span>
+                <span class="navigationLinks" id="17" onclick="blockCustomization(this.id);"><i style="opacity: 0;" class="fa fa-question" id="37"></i></span>
+                <span class="navigationLinks" id="18" onclick="blockCustomization(this.id);"><i style="opacity: 0;" class="fa fa-question" id="38"></i></span>
+                <span class="navigationLinks" id="19" onclick="blockCustomization(this.id);"><i style="opacity: 0;" class="fa fa-question" id="39"></i></span>
+                <span class="navigationLinks" id="20" onclick="blockCustomization(this.id);"><i style="opacity: 0;" class="fa fa-question" id="40"></i></span>
+                <span class="navigationLinks" id="21" onclick="blockCustomization(this.id);"><i style="opacity: 0;" class="fa fa-question" id="41"></i></span>
+                <span class="navigationLinks" id="22" onclick="blockCustomization(this.id);"><i style="opacity: 0;" class="fa fa-question" id="42"></i></span>
+                <span class="navigationLinks" id="23" onclick="blockCustomization(this.id);"><i style="opacity: 0;" class="fa fa-question" id="43"></i></span>
+                <span class="navigationLinks" id="24" onclick="blockCustomization(this.id);"><i style="opacity: 0;" class="fa fa-question" id="44"></i></span>
             </div><br><br><br><br><br><br><br>
             <!--Save can be changed to show grid first-->
             <button class="achievementButton" id="saveProgess" onclick="save();">Save</button>
@@ -134,7 +136,7 @@
         <div id="tooltip">
             <span id="blockType"></span>
         </div>
-        <div id="h" style="position: absolute; font-size: 4em;"></div>
+        <div id="h" style="position: absolute; font-size: 4em;">ssssssss</div>
         <script src="progress.js"></script>
     </body>
 </html>

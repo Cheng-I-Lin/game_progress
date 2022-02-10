@@ -23,7 +23,7 @@ class Block{
 var level=0;
 var xp=0;
 var blockSize=50;
-var blockHeight=50;
+var blockHeight=100;
 var blockType="Regular";
 var gameTime=22;
 var pause=false;
@@ -37,6 +37,11 @@ var recordHeight=0;
 const grid=document.getElementById("grid");
 const achievement=document.getElementById("achievements");
 const showAchievement=document.getElementById("showAchievement");
+//Resets background img position
+var blockImg=document.getElementById("blockImg");
+blockImg.style.opacity=0;
+blockImg.style.width=grid.offsetWidth+"px";
+blockImg.style.height=grid.offsetHeight+"px";
 //Sets the cover grid lower due to border width(-1)
 document.getElementById("coverGrid").style.top=grid.offsetHeight+grid.offsetTop-1+"px";
 document.getElementById("coverGrid").style.width=grid.offsetWidth+"px";
@@ -96,6 +101,7 @@ function drawGame(){
     //document.getElementById("h").innerHTML=slideCanvasTop;
     ds.clearRect(canvas.left,canvas.top,canvas.width,canvas.height);
     for(let i=0;i<allBlock.length;i++){
+        ds.shadowBlur=0;
         //Draws meteor only if it's not dead
         switch(allBlock[i].type){
             case "Regular":
@@ -108,28 +114,38 @@ function drawGame(){
                 ds.fillStyle="gold";
                 break;
             case "Ice Cold":
+                ds.fillStyle="rgb(202, 203, 241)";
                 break;
             case "Flaming Block":
+                ds.shadowBlur=10;
+                ds.shadowColor="rgba(255, 0, 0, 1)";
+                ds.fillStyle="rgb(255, 136, 0)";
                 break;
-            case "":
+            case "G-Force":
+                ds.fillStyle="";
                 break;
-            case "":
+            case "TNT":
+                ds.fillStyle="";
                 break;
             case "Gemstone":
+                ds.fillStyle="";
                 break;
             case "Starstruck":
+                ds.fillStyle="";
                 break;
             case "":
                 break;
             case "":
                 break;
             case "Shapeshifter":
+                ds.fillStyle="";
                 break;
             case "":
                 break;
             case "":
                 break;
             case "Meteorite":
+                ds.fillStyle="";
                 break;
             default:
                 ds.fillStyle="red";
@@ -149,14 +165,41 @@ function drawGame(){
                 ds.stroke();
                 break;
             case "Gold Rush":
+                ds.beginPath();
+                ds.moveTo(allBlock[i].x+1.5,allBlock[i].y+1.5);
+                ds.lineTo(allBlock[i].width+allBlock[i].x-1.5,allBlock[i].y+1.5);
+                ds.lineTo(allBlock[i].width+allBlock[i].x-1.5,allBlock[i].height+allBlock[i].y-1.5);
+                ds.lineTo(allBlock[i].x+1.5,allBlock[i].height+allBlock[i].y-1.5);
+                ds.closePath();
+                ds.strokeStyle="rgb(220, 135, 0)";
+                ds.lineWidth=3;
+                ds.stroke();
                 break;
             case "Ice Cold":
+                ds.beginPath();
+                ds.moveTo(allBlock[i].x+1.5,allBlock[i].y+1.5);
+                ds.lineTo(allBlock[i].width+allBlock[i].x-1.5,allBlock[i].y+1.5);
+                ds.lineTo(allBlock[i].width+allBlock[i].x-1.5,allBlock[i].height+allBlock[i].y-1.5);
+                ds.lineTo(allBlock[i].x+1.5,allBlock[i].height+allBlock[i].y-1.5);
+                ds.closePath();
+                ds.strokeStyle="rgb(138, 130, 203)";
+                ds.lineWidth=3;
+                ds.stroke();
                 break;
             case "Flaming Block":
+                ds.beginPath();
+                ds.moveTo(allBlock[i].x+1.5,allBlock[i].y+1.5);
+                ds.lineTo(allBlock[i].width+allBlock[i].x-1.5,allBlock[i].y+1.5);
+                ds.lineTo(allBlock[i].width+allBlock[i].x-1.5,allBlock[i].height+allBlock[i].y-1.5);
+                ds.lineTo(allBlock[i].x+1.5,allBlock[i].height+allBlock[i].y-1.5);
+                ds.closePath();
+                ds.strokeStyle="red";
+                ds.lineWidth=3;
+                ds.stroke();
                 break;
-            case "":
+            case "G-Force":
                 break;
-            case "":
+            case "TNT":
                 break;
             case "Gemstone":
                 break;
@@ -189,6 +232,7 @@ function drawBlock(){
     canvas.height = blockInfo.offsetHeight;
     ds.clearRect(canvas.left,canvas.top,canvas.width,canvas.height);
     if(allBlock.length>0){
+        ds.shadowBlur=0;
         let offsetX=(blockInfo.offsetWidth-blockSize)/2;
         let offsetY=(blockInfo.offsetHeight-blockHeight)/2;
         switch(blockType){
@@ -202,12 +246,16 @@ function drawBlock(){
                 ds.fillStyle="gold";
                 break;
             case "Ice Cold":
+                ds.fillStyle="rgb(202, 203, 241)";
                 break;
             case "Flaming Block":
+                ds.shadowBlur=10;
+                ds.shadowColor="rgba(255, 0, 0, 1)";
+                ds.fillStyle="rgb(255, 136, 0)";
                 break;
-            case "":
+            case "G-Force":
                 break;
-            case "":
+            case "TNT":
                 break;
             case "Gemstone":
                 break;
@@ -242,14 +290,41 @@ function drawBlock(){
                 ds.stroke();
                 break;
             case "Gold Rush":
+                ds.beginPath();
+                ds.moveTo(offsetX+1.5,offsetY+1.5);
+                ds.lineTo(blockSize+offsetX-1.5,offsetY+1.5);
+                ds.lineTo(blockSize+offsetX-1.5,blockHeight+offsetY-1.5);
+                ds.lineTo(offsetX+1.5,blockHeight+offsetY-1.5);
+                ds.closePath();
+                ds.strokeStyle="rgb(220, 135, 0)";
+                ds.lineWidth=3;
+                ds.stroke();
                 break;
             case "Ice Cold":
+                ds.beginPath();
+                ds.moveTo(offsetX+1.5,offsetY+1.5);
+                ds.lineTo(blockSize+offsetX-1.5,offsetY+1.5);
+                ds.lineTo(blockSize+offsetX-1.5,blockHeight+offsetY-1.5);
+                ds.lineTo(offsetX+1.5,blockHeight+offsetY-1.5);
+                ds.closePath();
+                ds.strokeStyle="rgb(138, 130, 203)";
+                ds.lineWidth=3;
+                ds.stroke();
                 break;
             case "Flaming Block":
+                ds.beginPath();
+                ds.moveTo(offsetX+1.5,offsetY+1.5);
+                ds.lineTo(blockSize+offsetX-1.5,offsetY+1.5);
+                ds.lineTo(blockSize+offsetX-1.5,blockHeight+offsetY-1.5);
+                ds.lineTo(offsetX+1.5,blockHeight+offsetY-1.5);
+                ds.closePath();
+                ds.strokeStyle="red";
+                ds.lineWidth=3;
+                ds.stroke();
                 break;
-            case "":
+            case "G-Force":
                 break;
-            case "":
+            case "TNT":
                 break;
             case "Gemstone":
                 break;
@@ -285,6 +360,8 @@ function drawBlockType(){
     canvas.height = customBlock.offsetHeight;
     ds.clearRect(canvas.left,canvas.top,canvas.width,canvas.height);
     for(let i=0;i<navigationLinks.length;i++){
+        //Reset shadow first
+        ds.shadowBlur=0;
         let offsetX=navigationLinks[i].offsetLeft+(navigationLinks[i].offsetWidth-50)/2;
         let offsetY=(navigationLinks[i].offsetHeight-50)/2;
         //Draws a block in the middle of each text only if question mark is gone
@@ -302,28 +379,50 @@ function drawBlockType(){
                     ds.fillStyle="gold";
                     break;
                 case 3:
+                    //Create icy effects like snow falling
+                    ds.fillStyle="rgb(202, 203, 241)";
+                    //Use this to create drop shadow effects
                     break;
                 case 4:
+                    ds.shadowBlur=10;
+                    ds.shadowColor="rgba(255, 0, 0, 1)";
+                    ds.fillStyle="rgb(255, 136, 0)";
                     break;
                 case 5:
+                    ds.fillStyle="rgb(51, 128, 70)";
                     break;
                 case 6:
+                    ds.fillStyle="rgb(253, 77, 54)";
                     break;
                 case 7:
+                    ds.fillStyle="rgb(0, 255, 200)";
                     break;
                 case 8:
+                    ds.shadowBlur=10;
+                    ds.shadowColor="gold";
+                    ds.fillStyle="yellow";
                     break;
                 case 9:
+                    ds.fillStyle="gold";
                     break;
                 case 10:
+                    ds.shadowBlur=30;
+                    ds.shadowColor=rgb;
+                    ds.fillStyle=rgb;
                     break;
                 case 11:
+                    ds.fillStyle="gold";
                     break;
                 case 12:
+                    ds.shadowBlur=20;
+                    ds.shadowColor="black";
+                    ds.fillStyle="rgba(255,255,255,0.3)";
                     break;
                 case 13:
+                    ds.fillStyle="silver";
                     break;
                 case 14:
+                    ds.fillStyle="gold";
                     break;
                 default:
                     break;
@@ -333,37 +432,159 @@ function drawBlockType(){
                 case 1:
                     ds.beginPath();
                     ds.moveTo(offsetX+1.5,offsetY+1.5);
-                    ds.lineTo(blockSize+offsetX-1.5,offsetY+1.5);
-                    ds.lineTo(blockSize+offsetX-1.5,blockHeight+offsetY-1.5);
-                    ds.lineTo(offsetX+1.5,blockHeight+offsetY-1.5);
+                    ds.lineTo(50+offsetX-1.5,offsetY+1.5);
+                    ds.lineTo(50+offsetX-1.5,50+offsetY-1.5);
+                    ds.lineTo(offsetX+1.5,50+offsetY-1.5);
                     ds.closePath();
                     ds.strokeStyle="black";
                     ds.lineWidth=3;
                     ds.stroke();
                     break;
                 case 2:
+                    ds.beginPath();
+                    ds.moveTo(offsetX+1.5,offsetY+1.5);
+                    ds.lineTo(50+offsetX-1.5,offsetY+1.5);
+                    ds.lineTo(50+offsetX-1.5,50+offsetY-1.5);
+                    ds.lineTo(offsetX+1.5,50+offsetY-1.5);
+                    ds.closePath();
+                    ds.strokeStyle="rgb(220, 135, 0)";
+                    ds.lineWidth=3;
+                    ds.stroke();
                     break;
                 case 3:
+                    ds.beginPath();
+                    ds.moveTo(offsetX+1.5,offsetY+1.5);
+                    ds.lineTo(50+offsetX-1.5,offsetY+1.5);
+                    ds.lineTo(50+offsetX-1.5,50+offsetY-1.5);
+                    ds.lineTo(offsetX+1.5,50+offsetY-1.5);
+                    ds.closePath();
+                    ds.strokeStyle="rgb(138, 130, 203)";
+                    ds.lineWidth=3;
+                    ds.stroke();
                     break;
                 case 4:
+                    ds.beginPath();
+                    ds.moveTo(offsetX+1.5,offsetY+1.5);
+                    ds.lineTo(50+offsetX-1.5,offsetY+1.5);
+                    ds.lineTo(50+offsetX-1.5,50+offsetY-1.5);
+                    ds.lineTo(offsetX+1.5,50+offsetY-1.5);
+                    ds.closePath();
+                    ds.strokeStyle="red";
+                    ds.lineWidth=3;
+                    ds.stroke();
                     break;
                 case 5:
+                    ds.beginPath();
+                    ds.moveTo(offsetX+1.5,offsetY+1.5);
+                    ds.lineTo(50+offsetX-1.5,offsetY+1.5);
+                    ds.lineTo(50+offsetX-1.5,50+offsetY-1.5);
+                    ds.lineTo(offsetX+1.5,50+offsetY-1.5);
+                    ds.closePath();
+                    ds.strokeStyle="black";
+                    ds.lineWidth=3;
+                    ds.stroke();
+                    ds.beginPath();
+                    ds.moveTo(offsetX+10,offsetY+10);
+                    ds.lineTo(offsetX+10,offsetY+15);
+                    ds.lineTo(offsetX+25,offsetY+25);
+                    ds.lineTo(offsetX+40,offsetY+15);
+                    ds.lineTo(offsetX+40,offsetY+10);
+                    ds.lineTo(offsetX+25,offsetY+20);
+                    ds.closePath();
+                    ds.fillStyle="gold";
+                    ds.fill();
+                    ds.lineWidth=1.5;
+                    ds.stroke();
+                    ds.beginPath();
+                    ds.moveTo(offsetX+10,offsetY+15);
+                    ds.lineTo(offsetX+10,offsetY+20);
+                    ds.lineTo(offsetX+25,offsetY+30);
+                    ds.lineTo(offsetX+40,offsetY+20);
+                    ds.lineTo(offsetX+40,offsetY+15);
+                    ds.lineTo(offsetX+25,offsetY+25);
+                    ds.closePath();
+                    ds.fill();
+                    ds.stroke();
+                    ds.beginPath();
+                    ds.moveTo(offsetX+10,offsetY+20);
+                    ds.lineTo(offsetX+10,offsetY+25);
+                    ds.lineTo(offsetX+25,offsetY+35);
+                    ds.lineTo(offsetX+40,offsetY+25);
+                    ds.lineTo(offsetX+40,offsetY+20);
+                    ds.lineTo(offsetX+25,offsetY+30);
+                    ds.closePath();
+                    ds.fill();
+                    ds.stroke();
+                    ds.beginPath();
+                    ds.moveTo(offsetX+10,offsetY+25);
+                    ds.lineTo(offsetX+10,offsetY+30);
+                    ds.lineTo(offsetX+25,offsetY+40);
+                    ds.lineTo(offsetX+40,offsetY+30);
+                    ds.lineTo(offsetX+40,offsetY+25);
+                    ds.lineTo(offsetX+25,offsetY+35);
+                    ds.closePath();
+                    ds.fill();
+                    ds.stroke();
                     break;
                 case 6:
+                    ds.beginPath();
+                    ds.moveTo(offsetX,25+offsetY);
+                    ds.lineTo(50+offsetX,25+offsetY);
+                    ds.strokeStyle="black";
+                    ds.lineWidth=15;
+                    ds.stroke();
                     break;
                 case 7:
+                    ds.beginPath();
+                    ds.moveTo(offsetX+1.5,offsetY+1.5);
+                    ds.lineTo(50+offsetX-1.5,offsetY+1.5);
+                    ds.lineTo(50+offsetX-1.5,50+offsetY-1.5);
+                    ds.lineTo(offsetX+1.5,50+offsetY-1.5);
+                    ds.closePath();
+                    ds.strokeStyle="green";
+                    ds.lineWidth=3;
+                    ds.stroke();
                     break;
                 case 8:
                     break;
                 case 9:
                     break;
                 case 10:
+                    ds.beginPath();
+                    ds.moveTo(offsetX+1.5,offsetY+1.5);
+                    ds.lineTo(50+offsetX-1.5,offsetY+1.5);
+                    ds.lineTo(50+offsetX-1.5,50+offsetY-1.5);
+                    ds.lineTo(offsetX+1.5,50+offsetY-1.5);
+                    ds.closePath();
+                    ds.strokeStyle=rgbBorder;
+                    ds.lineWidth=3;
+                    ds.stroke();
                     break;
                 case 11:
                     break;
                 case 12:
+                    ds.beginPath();
+                    ds.moveTo(offsetX+1.5,offsetY+1.5);
+                    ds.lineTo(50+offsetX-1.5,offsetY+1.5);
+                    ds.lineTo(50+offsetX-1.5,50+offsetY-1.5);
+                    ds.lineTo(offsetX+1.5,50+offsetY-1.5);
+                    ds.closePath();
+                    ds.strokeStyle="silver";
+                    ds.lineWidth=3;
+                    ds.stroke();
                     break;
                 case 13:
+                    ds.beginPath();
+                    ds.moveTo(offsetX+1.5,offsetY+1.5);
+                    ds.lineTo(50+offsetX-1.5,offsetY+1.5);
+                    ds.lineTo(50+offsetX-1.5,50+offsetY-1.5);
+                    ds.lineTo(offsetX+1.5,50+offsetY-1.5);
+                    ds.closePath();
+                    ds.strokeStyle="black";
+                    ds.lineWidth=3;
+                    ds.stroke();
+                    ds.fillStyle="white";
+                    ds.fillRect(offsetX+17.5,offsetY+17.5,15,15);
                     break;
                 case 14:
                     break;
@@ -373,6 +594,13 @@ function drawBlockType(){
         }
     }
 } 
+//Change colors for rainbow block
+var rgb="";
+var rgbBorder="";
+setInterval(function(){
+    rgb="rgb("+(Math.random()*255)+","+(Math.random()*255)+","+(Math.random()*255)+")";
+    rgbBorder="rgb("+(Math.random()*155)+","+(Math.random()*155)+","+(Math.random()*155)+")";
+},500);
 //When hovers over powerups, background color is lighted to show you can upgrade if there's enough xp(PU=power up)
 const fasterProgressPU=document.getElementById("fasterProgress");
 const fasterFallPU=document.getElementById("fasterFall");
@@ -412,6 +640,12 @@ function game(){
     for(let i=0;i<allBlock.length;i++){
         if(!pause){
             allBlock[i].fall();
+            //Shows pic based on blocktype
+            if(allBlock[i].type=="Ice Cold"&&allBlock[i].falling){
+                blockImg.style.opacity=0.45;
+            } else{
+                blockImg.style.opacity=0;
+            }
             //Stops falling when hit other block
             for(let j=0;j<i;j++){
                 if(allBlock[i].y+allBlock[i].height>=allBlock[j].y&&(allBlock[i].x+allBlock[i].width>=allBlock[j].x&&allBlock[i].x<=allBlock[j].x+allBlock[j].width)){
@@ -448,7 +682,7 @@ function game(){
                     //Can think about how to make it transition instead of immediately go down one block
                     allBlock[j].y+=blockHeight;
                 }
-                addHeight+=50;
+                addHeight+=allBlock[i].height;
             }
             if(allBlock[i].y<max&&!allBlock[i].falling){
                 max=allBlock[i].y;
@@ -577,20 +811,24 @@ function blockCustomization(id){
             }
             break;
         case "15":
-            text.innerHTML="<strong></strong><br>Unlocks At Height 5000";
+            text.innerHTML="<strong>G-Force</strong><br>Unlocks At Height 5000";
             if(recordHeight>=5000){
-                blockType="";
+                //Draw arrows or dash line when block falls, indicating fast moving speed
+                //Two arrows pointing down in the block for display
+                blockType="G-Force";
             }
             break;
         case "16":
-            text.innerHTML="<strong></strong><br>Unlocks At Height 7500";
+            text.innerHTML="<strong>TNT</strong><br>Unlocks At Height 7500";
             if(recordHeight>=7500){
-                blockType="";
+                //Create countdown attribute for blocks, count to 0 explode from 3
+                blockType="TNT";
             }
             break;
         case "17":
             text.innerHTML="<strong>Gemstone</strong><br>Unlocks At Height 10000";
             if(recordHeight>=10000){
+                //The gem grows bigger
                 blockType="Gemstone";
             }
             break;
@@ -602,34 +840,35 @@ function blockCustomization(id){
             }
             break;
         case "19":
-            text.innerHTML="<strong></strong><br>Unlocks At Height 45000";
+            text.innerHTML="<strong>Flash</strong><br>Unlocks At Height 45000";
             if(recordHeight>=45000){
-                blockType="";
+                blockType="Flash";
             }
             break;
         case "20":
-            text.innerHTML="<strong></strong><br>Unlocks At Height 75000";
+            text.innerHTML="<strong>Rainbow</strong><br>Unlocks At Height 75000";
             if(recordHeight>=75000){
-                blockType="";
+                blockType="Rainbow";
             }
             break;
         case "21":
-            //Change a shape inside the block
+            //Change a shape inside the block, use attribute
             text.innerHTML="<strong>Shapeshifter</strong><br>Unlocks At Height 100000";
             if(recordHeight>=100000){
                 blockType="Shapeshifter";
             }
             break;
         case "22":
-            text.innerHTML="<strong></strong><br>Unlocks At Height 500000";
+            text.innerHTML="<strong>Ghost</strong><br>Unlocks At Height 500000";
             if(recordHeight>=500000){
-                blockType="";
+                blockType="Ghost";
             }
             break;
         case "23":
-            text.innerHTML="<strong></strong><br>Unlocks At Height 750000";
+            text.innerHTML="<strong>Bouncy Block</strong><br>Unlocks At Height 750000";
             if(recordHeight>=750000){
-                blockType="";
+                //Tiny block inside that bounces around
+                blockType="Bouncy Block";
             }
             break;
         case "24":

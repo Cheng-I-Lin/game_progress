@@ -182,6 +182,12 @@ body{
     background-color: rgb(231, 231, 231);
     border-left: black 2px solid;
     border-right: black 2px solid;
+    overflow: hidden;
+}
+#blockImg{
+    position: absolute;
+    left: 0%;
+    top: 0%;
 }
 #playerCanvas{
     position: absolute;
@@ -357,5 +363,5 @@ body{
     position: absolute;
 }
 #h{
-    background-color: rgb(231, 87, 87);
+    background-color: rgb(253, 77, 54);
 }
