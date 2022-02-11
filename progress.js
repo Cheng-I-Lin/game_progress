@@ -8,6 +8,14 @@ class Block{
         this.speed=speed;
         this.type=type;
         this.bonus=bonus;
+        //Used for TNT block, counting down
+        this.explosionTime=3;
+        //Used for the gemstone block, growing gem
+        this.gemTime=0;
+        //Used to determine the shape of the block shapeshifter
+        this.shape=shapeShifterShape;
+        //Used for ghost block, shows/hides it
+        this.show=false;
     }
     //Make the blocks fall
     fall(){
@@ -34,6 +42,7 @@ var bonusProgress=5;
 var slideCanvasTop=0;
 var canvasBottom=0;
 var recordHeight=0;
+var shapeShifterShape="square"
 const grid=document.getElementById("grid");
 const achievement=document.getElementById("achievements");
 const showAchievement=document.getElementById("showAchievement");
@@ -133,22 +142,21 @@ function drawGame(){
             case "Starstruck":
                 ds.fillStyle="";
                 break;
-            case "":
+            case "Flash":
                 break;
-            case "":
+            case "Rainbow":
                 break;
             case "Shapeshifter":
                 ds.fillStyle="";
                 break;
-            case "":
+            case "Ghost":
                 break;
-            case "":
+            case "Bouncy Block":
                 break;
             case "Meteorite":
                 ds.fillStyle="";
                 break;
             default:
-                ds.fillStyle="red";
                 break;
         }
         ds.fillRect(allBlock[i].x,allBlock[i].y,allBlock[i].width,allBlock[i].height);
@@ -198,22 +206,30 @@ function drawGame(){
                 ds.stroke();
                 break;
             case "G-Force":
+
                 break;
             case "TNT":
+
                 break;
             case "Gemstone":
+                switch(allBlock[i].gemTime){
+                    case 0:
+                        break;
+                    default:
+                        break;
+                }
                 break;
             case "Starstruck":
                 break;
-            case "":
+            case "Flash":
                 break;
-            case "":
+            case "Rainbow":
                 break;
             case "Shapeshifter":
                 break;
-            case "":
+            case "Ghost":
                 break;
-            case "":
+            case "Bouncy Block":
                 break;
             case "Meteorite":
                 break;
@@ -261,15 +277,15 @@ function drawBlock(){
                 break;
             case "Starstruck":
                 break;
-            case "":
+            case "Flash":
                 break;
-            case "":
+            case "Rainbow":
                 break;
             case "Shapeshifter":
                 break;
-            case "":
+            case "Ghost":
                 break;
-            case "":
+            case "Bouncy Block":
                 break;
             case "Meteorite":
                 break;
@@ -330,15 +346,15 @@ function drawBlock(){
                 break;
             case "Starstruck":
                 break;
-            case "":
+            case "Flash":
                 break;
-            case "":
+            case "Rainbow":
                 break;
             case "Shapeshifter":
                 break;
-            case "":
+            case "Ghost":
                 break;
-            case "":
+            case "Bouncy Block":
                 break;
             case "Meteorite":
                 break;
@@ -410,9 +426,7 @@ function drawBlockType(){
                     ds.shadowColor=rgb;
                     ds.fillStyle=rgb;
                     break;
-                case 11:
-                    ds.fillStyle="gold";
-                    break;
+                //Shapeshifter don't neet a blcok background
                 case 12:
                     ds.shadowBlur=20;
                     ds.shadowColor="black";
@@ -561,6 +575,7 @@ function drawBlockType(){
                     ds.stroke();
                     break;
                 case 11:
+                    
                     break;
                 case 12:
                     ds.beginPath();
@@ -594,6 +609,17 @@ function drawBlockType(){
         }
     }
 } 
+var mouseX;
+var mouseY;
+//Updates the position of the mouse only if mouse inside the grid
+document.addEventListener("mousemove",function(mouse){
+    if(mouse.x-grid.offsetLeft<=grid.offsetWidth&&mouse.x-grid.offsetLeft>=0){
+        mouseX=mouse.x-grid.offsetLeft;
+    }
+    if(mouse.y-grid.offsetTop<=grid.offsetHeight&&mouse.y-grid.offsetTop>=0){
+        mouseY=mouse.y-grid.offsetTop;
+    }
+});
 //Change colors for rainbow block
 var rgb="";
 var rgbBorder="";
@@ -640,6 +666,15 @@ function game(){
     for(let i=0;i<allBlock.length;i++){
         if(!pause){
             allBlock[i].fall();
+            //Shows ghost bock
+            if((mouseX>allBlock[i].x&&mouseX<allBlock[i].x+allBlock[i].width)&&(mouseY>allBlock[i].y&&mouseY<allBlock[i].y+allBlock[i].height)){
+                if(allBlock[i].type=="Ghost"){
+                    allBlock[i].show=true;
+                }
+                //document.getElementById("h").innerHTML=mouseX;
+            } else{
+                allBlock[i].show=false;
+            }
             //Shows pic based on blocktype
             if(allBlock[i].type=="Ice Cold"&&allBlock[i].falling){
                 blockImg.style.opacity=0.45;
