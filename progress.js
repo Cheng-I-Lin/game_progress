@@ -1,5 +1,5 @@
 class Block{
-    constructor(x,y,falling=true,width=blockSize,height=blockHeight,speed=1,type=blockType,bonus=true) {
+    constructor(x,y,falling=true,width=blockSize,height=blockHeight,speed=2,type=blockType,bonus=true) {
         this.x=x;
         this.y=y;
         this.falling=falling;
@@ -28,16 +28,20 @@ class Block{
         this.falling=false;
     }
 }
+const levelUpPage=document.getElementById("levelUpPage");
 var level=0;
 var xp=0;
 var blockSize=50;
-var blockHeight=100;
+var blockHeight=50;
 var blockType="Regular";
 var gameTime=22;
 var pause=false;
+//Let 1000 as default
 var progressTime=50;
 var progressAdd=1;
 var bonusProgress=5;
+//Determines the probability of winning a bonus
+var randomChance=100;
 //Determines the top of canvas
 var slideCanvasTop=0;
 var canvasBottom=0;
@@ -46,6 +50,8 @@ var shapeShifterShape="square"
 const grid=document.getElementById("grid");
 const achievement=document.getElementById("achievements");
 const showAchievement=document.getElementById("showAchievement");
+const blockImage=document.getElementById("blockImage");
+const blockImage2=document.getElementById("blockImage2");
 //Resets background img position
 var blockImg=document.getElementById("blockImg");
 blockImg.style.opacity=0;
@@ -107,7 +113,7 @@ function drawGame(){
     canvas.width = grid.offsetWidth;
     canvas.height = grid.offsetHeight+Math.abs(max-grid.offsetHeight-addHeight);
     canvasBottom=canvas.offsetHeight;
-    //document.getElementById("h").innerHTML=slideCanvasTop;
+    //document.getElementById("h").innerHTML=progressTime;
     ds.clearRect(canvas.left,canvas.top,canvas.width,canvas.height);
     for(let i=0;i<allBlock.length;i++){
         ds.shadowBlur=0;
@@ -145,6 +151,7 @@ function drawGame(){
             case "Flash":
                 break;
             case "Rainbow":
+                ds.fillStyle=rgb;
                 break;
             case "Shapeshifter":
                 ds.fillStyle="";
@@ -224,6 +231,15 @@ function drawGame(){
             case "Flash":
                 break;
             case "Rainbow":
+                ds.beginPath();
+                ds.moveTo(allBlock[i].x+1.5,allBlock[i].y+1.5);
+                ds.lineTo(allBlock[i].width+allBlock[i].x-1.5,allBlock[i].y+1.5);
+                ds.lineTo(allBlock[i].width+allBlock[i].x-1.5,allBlock[i].height+allBlock[i].y-1.5);
+                ds.lineTo(allBlock[i].x+1.5,allBlock[i].height+allBlock[i].y-1.5);
+                ds.closePath();
+                ds.strokeStyle=rgbBorder;
+                ds.lineWidth=3;
+                ds.stroke();
                 break;
             case "Shapeshifter":
                 break;
@@ -280,6 +296,7 @@ function drawBlock(){
             case "Flash":
                 break;
             case "Rainbow":
+                ds.fillStyle=rgb;
                 break;
             case "Shapeshifter":
                 break;
@@ -349,6 +366,15 @@ function drawBlock(){
             case "Flash":
                 break;
             case "Rainbow":
+                ds.beginPath();
+                ds.moveTo(offsetX+1.5,offsetY+1.5);
+                ds.lineTo(blockSize+offsetX-1.5,offsetY+1.5);
+                ds.lineTo(blockSize+offsetX-1.5,blockHeight+offsetY-1.5);
+                ds.lineTo(offsetX+1.5,blockHeight+offsetY-1.5);
+                ds.closePath();
+                ds.strokeStyle=rgbBorder;
+                ds.lineWidth=3;
+                ds.stroke();
                 break;
             case "Shapeshifter":
                 break;
@@ -367,6 +393,8 @@ function drawBlock(){
 }
 const customBlock=document.getElementById("customBlock");
 const navigationLinks=document.getElementsByClassName("navigationLinks");
+var lightningX=0;
+var lightningY=0;
 function drawBlockType(){
     let canvas=document.getElementById("blockTypeCanvas");
     let ds=canvas.getContext("2d");
@@ -408,7 +436,7 @@ function drawBlockType(){
                     ds.fillStyle="rgb(51, 128, 70)";
                     break;
                 case 6:
-                    ds.fillStyle="rgb(253, 77, 54)";
+                    ds.fillStyle="transparent";
                     break;
                 case 7:
                     ds.fillStyle="rgb(0, 255, 200)";
@@ -419,7 +447,7 @@ function drawBlockType(){
                     ds.fillStyle="yellow";
                     break;
                 case 9:
-                    ds.fillStyle="gold";
+                    ds.fillStyle="rgb(195, 13, 12)";
                     break;
                 case 10:
                     ds.shadowBlur=30;
@@ -427,6 +455,9 @@ function drawBlockType(){
                     ds.fillStyle=rgb;
                     break;
                 //Shapeshifter don't neet a blcok background
+                case 11:
+                    ds.fillStyle="transparent";
+                    break;
                 case 12:
                     ds.shadowBlur=20;
                     ds.shadowColor="black";
@@ -541,12 +572,50 @@ function drawBlockType(){
                     ds.stroke();
                     break;
                 case 6:
+                    //Draw different colored wires to the timer
                     ds.beginPath();
-                    ds.moveTo(offsetX,25+offsetY);
-                    ds.lineTo(50+offsetX,25+offsetY);
-                    ds.strokeStyle="black";
-                    ds.lineWidth=15;
+                    ds.moveTo(10+offsetX-1.5,40+offsetY-1.5);
+                    ds.lineTo(offsetX+1.5,40+offsetY-1.5);
+                    ds.lineTo(offsetX+1.5,20+offsetY);
+                    ds.strokeStyle="green";
+                    ds.lineWidth=3;
                     ds.stroke();
+                    ds.beginPath();
+                    ds.moveTo(40+offsetX-1.5,40+offsetY-1.5);
+                    ds.lineTo(50+offsetX-1.5,40+offsetY-1.5);
+                    ds.lineTo(50+offsetX-1.5,20+offsetY);
+                    ds.strokeStyle="blue";
+                    ds.lineWidth=3;
+                    ds.stroke();
+                    ds.beginPath();
+                    ds.moveTo(35+offsetX-1.5,20+offsetY-1.5);
+                    ds.lineTo(35+offsetX-1.5,40+offsetY-1.5);
+                    ds.strokeStyle="orange";
+                    ds.lineWidth=3;
+                    ds.stroke();
+                    ds.stroke();
+                    ds.beginPath();
+                    ds.moveTo(15+offsetX+1.5,20+offsetY-1.5);
+                    ds.lineTo(15+offsetX+1.5,40+offsetY-1.5);
+                    ds.strokeStyle="red";
+                    ds.lineWidth=3;
+                    ds.stroke();
+                    ds.fillStyle="rgb(253, 77, 54)";
+                    ds.fillRect(offsetX,offsetY,50,20);
+                    ds.beginPath();
+                    ds.moveTo(offsetX+1.5,offsetY+1.5);
+                    ds.lineTo(50+offsetX-1.5,offsetY+1.5);
+                    ds.lineTo(50+offsetX-1.5,20+offsetY-1.5);
+                    ds.lineTo(offsetX+1.5,20+offsetY-1.5);
+                    ds.closePath();
+                    ds.strokeStyle="black";
+                    ds.lineWidth=3;
+                    ds.stroke();
+                    ds.fillStyle="black";
+                    ds.font="15px Arial";
+                    ds.fillText("0:03",offsetX+10.5,offsetY+15);
+                    //Can't just change img src for some reason, so need two pics
+                    ds.drawImage(blockImage2,offsetX+5,offsetY+17,40*blockImage2.offsetHeight/blockImage2.offsetWidth,40);
                     break;
                 case 7:
                     ds.beginPath();
@@ -560,8 +629,37 @@ function drawBlockType(){
                     ds.stroke();
                     break;
                 case 8:
+                    
                     break;
                 case 9:
+                    /*Use this to determine start/end points of the gradient
+                    let gradient = ds.createLinearGradient(offsetX,offsetY,offsetX+10,offsetY);
+                    gradient.addColorStop("0", "magenta");
+                    gradient.addColorStop("1.0", "red");*/
+                    ds.drawImage(blockImage,offsetX+1.5,offsetY+1.5,47,47*blockImage.offsetHeight/blockImage.offsetWidth);
+                    ds.beginPath();
+                    ds.moveTo(lightningX+offsetX,offsetY+1.5);
+                    ds.lineTo(lightningX+10+offsetX-1.5,offsetY+1.5);
+
+                    ds.moveTo(50+offsetX-1.5,lightningY+offsetY);
+                    ds.lineTo(50+offsetX-1.5,lightningY+10+offsetY-1.5);
+
+                    ds.moveTo(50+offsetX-lightningX,50+offsetY-1.5);
+                    ds.lineTo(40+offsetX+1.5-lightningX,50+offsetY-1.5);
+
+                    ds.moveTo(offsetX+1.5,50+offsetY-lightningY);
+                    ds.lineTo(offsetX+1.5,40+offsetY+1.5-lightningY);
+                    ds.strokeStyle="gold";
+                    ds.lineWidth=3;
+                    ds.stroke();
+                    lightningX++;
+                    lightningY++;
+                    if(lightningX+8.5>=50){
+                        lightningX=0;
+                    }
+                    if(lightningY+8.5>=50){
+                        lightningY=0;
+                    }
                     break;
                 case 10:
                     ds.beginPath();
@@ -575,7 +673,38 @@ function drawBlockType(){
                     ds.stroke();
                     break;
                 case 11:
-                    
+                    ds.beginPath();
+                    ds.moveTo(offsetX+1.5,offsetY+1.5);
+                    ds.lineTo(10+offsetX-1.5,offsetY+1.5);
+                    ds.lineTo(10+offsetX-1.5,10+offsetY-1.5);
+                    ds.lineTo(offsetX+1.5,10+offsetY-1.5);
+                    ds.closePath();
+                    ds.strokeStyle="black";
+                    ds.lineWidth=3;
+                    ds.stroke();
+                    ds.beginPath();
+                    ds.moveTo(50+offsetX-1.5,offsetY+1.5);
+                    ds.lineTo(40+offsetX+1.5,offsetY+1.5);
+                    ds.lineTo(40+offsetX+1.5,10+offsetY-1.5);
+                    ds.lineTo(50+offsetX-1.5,10+offsetY-1.5);
+                    ds.closePath();
+                    ds.stroke();
+                    ds.beginPath();
+                    ds.moveTo(50+offsetX-1.5,50+offsetY-1.5);
+                    ds.lineTo(40+offsetX+1.5,50+offsetY-1.5);
+                    ds.lineTo(40+offsetX+1.5,40+offsetY+1.5);
+                    ds.lineTo(50+offsetX-1.5,40+offsetY+1.5);
+                    ds.closePath();
+                    ds.stroke();
+                    ds.beginPath();
+                    ds.moveTo(offsetX+1.5,50+offsetY-1.5);
+                    ds.lineTo(10+offsetX-1.5,50+offsetY-1.5);
+                    ds.lineTo(10+offsetX-1.5,40+offsetY+1.5);
+                    ds.lineTo(offsetX+1.5,40+offsetY+1.5);
+                    ds.closePath();
+                    ds.stroke();
+                    ds.fillStyle="black";
+                    ds.fillRect(offsetX+10,offsetY+10,30,30);
                     break;
                 case 12:
                     ds.beginPath();
@@ -629,7 +758,7 @@ setInterval(function(){
 },500);
 //When hovers over powerups, background color is lighted to show you can upgrade if there's enough xp(PU=power up)
 const fasterProgressPU=document.getElementById("fasterProgress");
-const fasterFallPU=document.getElementById("fasterFall");
+const randomBonusPU=document.getElementById("randomBonus");
 const longerWidthPU=document.getElementById("longerWidth");
 const tallerHeightPU=document.getElementById("tallerHeight");
 
@@ -640,11 +769,11 @@ fasterProgressPU.addEventListener("mouseleave",function(){
     fasterProgressPU.style.backgroundColor="transparent";
 });
 
-fasterFallPU.addEventListener("mouseover",function(){
-    fasterFallPU.style.backgroundColor="rgba(255, 255, 255, 0.65)";
+randomBonusPU.addEventListener("mouseover",function(){
+    randomBonusPU.style.backgroundColor="rgba(255, 255, 255, 0.65)";
 });
-fasterFallPU.addEventListener("mouseleave",function(){
-    fasterFallPU.style.backgroundColor="transparent";
+randomBonusPU.addEventListener("mouseleave",function(){
+    randomBonusPU.style.backgroundColor="transparent";
 });
 
 longerWidthPU.addEventListener("mouseover",function(){
@@ -703,7 +832,7 @@ function game(){
                 }
             } else{
                 //Pther blocks can't fall below the first one, might move canvas and mess up ground height
-                if(allBlock[i].y>=allBlock[0].y){
+                if(allBlock[i].y+allBlock[i].height>=allBlock[0].y+allBlock[0].height){
                     allBlock[i].stopFall();
                     if(allBlock[i].bonus){
                         progressBar.value+=+bonusProgress;
@@ -726,10 +855,21 @@ function game(){
     }
     //Shows the tallest height and the total blocks
     recordHeight=Math.abs(max-grid.offsetHeight-addHeight);
+    let chance=Math.floor(Math.random()*randomChance);
     //Add xp if achieve new record height
     if(previousHeight<recordHeight){
-        xp+=2;
+        xp++;
         level++;
+        //Use randomChance for the randomBonus
+        if(100-randomChance>=chance){
+            xp++;
+        }
+        //Gives bonus if reach new levels of a factor of 10
+        if(level%10==1){
+            //Show announcement, player can choose the upgrade they want, un-pause after clicking/choosing power up
+            pause=true;
+            levelUpPage.style.bottom="25%";
+        }
     }
     document.getElementById("recordHeight").innerHTML=Math.abs(max-grid.offsetHeight-addHeight);
     document.getElementById("currentHeight").innerHTML=Math.abs(max-grid.offsetHeight-addHeight)+slideCanvasTop;
@@ -784,11 +924,17 @@ function goTop(){
 }
 //Pauses the game if button pressed
 function pauseGame(){
-    if(!pause){
-        pause=true;
-    } else{
-        pause=false;
+    if(levelUpPage.style.bottom!="25%"){
+        if(!pause){
+            pause=true;
+        } else{
+            pause=false;
+        }
     }
+}
+//Level upgrades
+function levelUpgrade(id){
+
 }
 //Shows tooltip when over question span
 var tooltip=document.getElementById("tooltip");
@@ -923,20 +1069,95 @@ function fasterProgress(){
     let PUxp=document.getElementById("fasterProgressXP");
     let PUlvl=document.getElementById("fasterProgressLevel");
     //Use parseInt to add xp and level
-    if(xp>=parseInt(PUxp.innerHTML)){
+    if(PUxp.innerHTML!="MAX"&&xp>=parseInt(PUxp.innerHTML)){
         xp-=parseInt(PUxp.innerHTML);
         PUlvl.innerHTML=parseInt(PUlvl.innerHTML)+1;
+        switch(PUlvl.innerHTML){
+            //Don't need level 1 cuz its already default
+            case "2":
+                progressTime=750;
+                break;
+            case "3":
+                progressTime=600;
+                break;
+            case "4":
+                progressTime=500;
+                break;
+            case "5":
+                progressTime=350;
+                break;
+            case "6":
+                progressTime=250;
+                break;
+            case "7":
+                progressTime=200;
+                break;
+            case "8":
+                progressTime=150;
+                break;
+            case "9":
+                progressTime=125;
+                break;
+            case "10":
+                progressTime=100;
+                break;
+            case "11":
+                progressTime=90;
+                break;
+            case "12":
+                progressTime=80;
+                break;
+            case "13":
+                progressTime=70;
+                break;
+            case "14":
+                progressTime=60;
+                break;
+            case "15":
+                progressTime=50;
+                break;
+            case "16":
+                progressTime=45;
+                break;
+            case "17":
+                progressTime=40;
+                break;
+            case "18":
+                progressTime=35;
+                break;
+            case "19":
+                progressTime=30;
+                break;
+            case "20":
+                progressTime=25;
+                PUlvl.innerHTML="MAX";
+                break;
+            default:
+                break;
+        }
         //linear decrease or exponential progressTime-=100;
     }
-    PUxp.innerHTML=PUlvl.innerHTML;
+    if(PUlvl.innerHTML=="MAX"){
+        PUxp.innerHTML="MAX ";
+    } else{
+        PUxp.innerHTML=PUlvl.innerHTML;
+    }
 }
-function fasterFall(){
-    let PUxp=document.getElementById("fasterFallXP");
-    let PUlvl=document.getElementById("fasterFallLevel");
+function randomBonus(){
+    let PUxp=document.getElementById("randomBonusXP");
+    let PUlvl=document.getElementById("randomBonusLevel");
     //Use parseInt to add xp and level
-    if(xp>=parseInt(PUxp.innerHTML)){
+    if(PUxp.innerHTML!="MAX"&&xp>=parseInt(PUxp.innerHTML)){
         xp-=parseInt(PUxp.innerHTML);
         PUlvl.innerHTML=parseInt(PUlvl.innerHTML)+1;
+        switch(PUlvl.innerHTML){
+            case "20":
+                PUlvl.innerHTML="MAX";
+                break;
+            default:
+                break;
+        }
+        randomChance-=2;
     }
     PUxp.innerHTML=PUlvl.innerHTML;
 }
@@ -947,6 +1168,10 @@ function largerWidth(){
     if(xp>=parseInt(PUxp.innerHTML)){
         xp-=parseInt(PUxp.innerHTML);
         PUlvl.innerHTML=parseInt(PUlvl.innerHTML)+1;
+        if(PUlvl.innerHTML=="20"){
+            PUlvl.innerHTML="MAX";
+        }
+        blockSize+=5;
     }
     PUxp.innerHTML=PUlvl.innerHTML;
 }
@@ -957,6 +1182,10 @@ function taller(){
     if(xp>=parseInt(PUxp.innerHTML)){
         xp-=parseInt(PUxp.innerHTML);
         PUlvl.innerHTML=parseInt(PUlvl.innerHTML)+1;
+        if(PUlvl.innerHTML=="20"){
+            PUlvl.innerHTML="MAX";
+        }
+        blockHeight+=5;
     }
     PUxp.innerHTML=PUlvl.innerHTML;
 }
@@ -1034,12 +1263,19 @@ function changeTheme(id){
 document.getElementById("0").style.backgroundColor="rgba(255, 255, 255, 0.65)";
 const progressBar=document.getElementById("progressBar");
 const barValue=document.getElementById("barValue");
+var resetBar=0;
 setInterval(function(){
     if(!pause){
+        //Can't directly change interval time
+        resetBar++;
+        //maybe 4,5 idk why keep decreasing speed, maybe for more things to check
+        if(resetBar>=progressTime/6){
+            progressBar.value+=progressAdd;
+            resetBar=0;
+        }
+        barValue.innerHTML="<strong>"+progressBar.value+"%</strong>";
         barValue.style.left=progressBar.offsetLeft+(progressBar.offsetWidth-barValue.offsetWidth)/2+"px";
         barValue.style.top=progressBar.offsetTop+(progressBar.offsetHeight-barValue.offsetHeight)/2+"px";
-        barValue.innerHTML="<strong>"+progressBar.value+"%</strong>";
-        progressBar.value+=progressAdd;
         if(progressBar.value==100){
             //Add in new block when progress hit 100, randomize block x location
             allBlock.push(new Block(Math.floor(Math.random()*(grid.offsetWidth-blockSize)),-blockHeight));
@@ -1047,7 +1283,7 @@ setInterval(function(){
             progressBar.value=0;
         }
     }
-},progressTime);
+});
 setInterval(function(){
     //Updates the color
     grid.style.backgroundColor="rgb("+document.getElementById("blockColor1").value+","+document.getElementById("blockColor2").value+","+document.getElementById("blockColor3").value+")";
@@ -1151,3 +1387,5 @@ setInterval(function(){
 //Can make block fall faster, change block width/height, make progress run faster, random block x less, add block color/page theme
 //Can consider adding tiny screens at sides, one to see block and another for height
 //Can press something to show height on the grid, like gridlines
+//Maybe change fasterfall to random bonus chance, bonus can be progress or xp, use text to show
+//Maybe every 5 or 10 level can have a free upgrade or xp gain

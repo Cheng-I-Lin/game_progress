@@ -56,7 +56,7 @@ body{
     left: 0%;
     top: 0%;
 }
-#fasterFall{
+#randomBonus{
     position: absolute;
     width: 25%;
     height: 100%;
@@ -362,6 +362,37 @@ body{
 #blockTypeCanvas{
     position: absolute;
 }
+#levelUpPage{
+    position: absolute;
+    width: 30%;
+    height: 50%;
+    left: 35%;
+    bottom: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    transition: all 1s;
+    text-align: center;
+    color: white;
+    font-size: 1.5em;
+}
+.upgradeLinks {
+    /*says where the text should be aligned*/
+    float: left;
+    /*controls the box size of the element*/
+    padding: 17px 32.9px;
+    color: rgba(0, 0, 0, 0.5);
+    background-color: transparent;
+    text-decoration: none;
+}
+.upgradeLinks:hover {
+    color: black;
+    background-color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+}
+/* Add a color to the active/current link */
+.upgradeLinks:active {
+    background-color: rgba(255, 255, 255, 0.85);
+    color: black;
+}
 #h{
-    background-color: rgb(253, 77, 54);
+    background-color: rgb(211, 53, 32);
 }
