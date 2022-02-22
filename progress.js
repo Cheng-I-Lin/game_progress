@@ -789,6 +789,57 @@ tallerHeightPU.addEventListener("mouseover",function(){
 tallerHeightPU.addEventListener("mouseleave",function(){
     tallerHeightPU.style.backgroundColor="transparent";
 });
+
+//When hover over level up page, it lights up
+document.getElementById("b1").addEventListener("mouseover",function(){
+    document.getElementById("b1").style.backgroundColor="rgba(255, 255, 255, 0.65)";
+    document.getElementById("b1").style.color="black";
+});
+document.getElementById("b1").addEventListener("mouseleave",function(){
+    document.getElementById("b1").style.backgroundColor="transparent";
+    document.getElementById("b1").style.color="white";
+});
+document.getElementById("b2").addEventListener("mouseover",function(){
+    document.getElementById("b2").style.backgroundColor="rgba(255, 255, 255, 0.65)";
+    document.getElementById("b2").style.color="black";
+});
+document.getElementById("b2").addEventListener("mouseleave",function(){
+    document.getElementById("b2").style.backgroundColor="transparent";
+    document.getElementById("b2").style.color="white";
+});
+document.getElementById("b3").addEventListener("mouseover",function(){
+    document.getElementById("b3").style.backgroundColor="rgba(255, 255, 255, 0.65)";
+    document.getElementById("b3").style.color="black";
+});
+document.getElementById("b3").addEventListener("mouseleave",function(){
+    document.getElementById("b3").style.backgroundColor="transparent";
+    document.getElementById("b3").style.color="white";
+});
+document.getElementById("b4").addEventListener("mouseover",function(){
+    document.getElementById("b4").style.backgroundColor="rgba(255, 255, 255, 0.65)";
+    document.getElementById("b4").style.color="black";
+});
+document.getElementById("b4").addEventListener("mouseleave",function(){
+    document.getElementById("b4").style.backgroundColor="transparent";
+    document.getElementById("b4").style.color="white";
+});
+document.getElementById("b5").addEventListener("mouseover",function(){
+    document.getElementById("b5").style.backgroundColor="rgba(255, 255, 255, 0.65)";
+    document.getElementById("b5").style.color="black";
+});
+document.getElementById("b5").addEventListener("mouseleave",function(){
+    document.getElementById("b5").style.backgroundColor="transparent";
+    document.getElementById("b5").style.color="white";
+});
+document.getElementById("b6").addEventListener("mouseover",function(){
+    document.getElementById("b6").style.backgroundColor="rgba(255, 255, 255, 0.65)";
+    document.getElementById("b6").style.color="black";
+});
+document.getElementById("b6").addEventListener("mouseleave",function(){
+    document.getElementById("b6").style.backgroundColor="transparent";
+    document.getElementById("b6").style.color="white";
+});
+
 //Use background color to determine upgrade or not when click
 function game(){
     let previousHeight=recordHeight;
@@ -868,7 +919,7 @@ function game(){
         if(level%10==1){
             //Show announcement, player can choose the upgrade they want, un-pause after clicking/choosing power up
             pause=true;
-            levelUpPage.style.bottom="25%";
+            levelUpPage.style.bottom="17.5%";
         }
     }
     document.getElementById("recordHeight").innerHTML=Math.abs(max-grid.offsetHeight-addHeight);
