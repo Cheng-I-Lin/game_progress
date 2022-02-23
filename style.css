@@ -79,6 +79,11 @@ body{
 }
 .description{
     font-size: 0.65em;
+    position: absolute;
+    width: 100%;
+    left: 0%;
+    bottom: 0%;
+    text-align: center;
 }
 #customBlock{
     position: absolute;
@@ -364,15 +369,16 @@ body{
 }
 #levelUpPage{
     position: absolute;
-    width: 30%;
+    width: 40%;
     height: 65%;
-    left: 35%;
+    left: 30%;
     bottom: 100%;
     background-color: rgba(0, 0, 0, 0.75);
-    transition: all 1s;
+    transition: all 0.5s;
     text-align: center;
     color: white;
     font-size: 1.5em;
+    border-radius: 10%;
 }
 #b1{
     position: absolute;

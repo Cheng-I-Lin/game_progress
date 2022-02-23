@@ -48,24 +48,24 @@
             <div id="powerUps">
                 <div id="fasterProgress" onclick="fasterProgress();">
                     <strong>Progression Boost (Lvl. <span id="fasterProgressLevel">1</span>)</strong><br>
-                    <img><br>
+                    <img class="upgradePics" src="upgradeProgress.png">
                     <!--Used to keep count of points, access it in js using powerup name + XP-->
-                    <span class="description">Proliferates the charge time of the progress bar (<strong><span id="fasterProgressXP">1</span>XP</strong>)</span>
+                    <div id="d1" class="description">Proliferates the charge time of the progress bar (<strong><span id="fasterProgressXP">1</span>XP</strong>)</div>
                 </div>
                 <div id="randomBonus" onclick="randomBonus();">
                     <strong>Random Bonus (Lvl. <span id="randomBonusLevel">1</span>)</strong><br>
-                    <img><br>
-                    <span class="description">Increase the probability of a bonus with each record height (<strong><span id="randomBonusXP">1</span>XP</strong>)</span>
+                    <img class="upgradePics" src="upgradeBonus.png"><br>
+                    <div id="d2" class="description">Increase the probability of a bonus with each record height (<strong><span id="randomBonusXP">1</span>XP</strong>)</div>
                 </div>
                 <div id="longerWidth" onclick="largerWidth();">
                     <strong>Block Growth: Width (Lvl. <span id="longerWidthLevel">1</span>)</strong><br>
-                    <img><br>
-                    <span class="description">Enlarges and widens the width of the blocks (<strong><span id="longerWidthXP">1</span>XP</strong>)</span>
+                    <img class="upgradePics" src="upgradeWidth.png"><br>
+                    <div id="d3" class="description">Enlarges and widens the width of the blocks (<strong><span id="longerWidthXP">1</span>XP</strong>)</div>
                 </div>
                 <div id="tallerHeight" onclick="taller();">
                     <strong>Block Growth: Height (Lvl. <span id="tallerHeightLevel">1</span>)</strong><br>
-                    <img><br>
-                    <span class="description">Increases the height of the blocks (<strong><span id="tallerHeightXP">1</span>XP</strong>)</span>
+                    <img class="upgradePics" src="upgradeHeight.png"><br>
+                    <div id="d4" class="description">Increases the height of the blocks (<strong><span id="tallerHeightXP">1</span>XP</strong>)</div>
                 </div>
             </div>
         </div>
@@ -109,12 +109,12 @@
         <div id="levelUpPage"><br>
             <strong style="text-decoration: underline;">Level Up</strong><br>
             Choose the following upgrades as a bonus!
-            <div id="b1" onclick="levelUpgrade(this.id)"><br>Additional XP(+1)</div>
-            <div id="b2" onclick="levelUpgrade(this.id)"><br>Extra Block(20 by 10)</div>
-            <div id="b3" onclick="levelUpgrade(this.id)"><br>Extra Block(10 by 20)</div>
-            <div id="b4" onclick="levelUpgrade(this.id)"><br>Faster Level Bonus(Skip next bonus)</div>
-            <div id="b5" onclick="levelUpgrade(this.id)"><br>Extra Fall Bonus(+2)</div>
-            <div id="b6" onclick="levelUpgrade(this.id)"><br>Free Upgrade(Lvl. under 5)</div>
+            <div id="b1" onclick="levelUpgrade(this.id)"><br><strong>Additional XP(+1)</strong></div>
+            <div id="b2" onclick="levelUpgrade(this.id)"><br><strong>Extra Block(20 by 10)</strong></div>
+            <div id="b3" onclick="levelUpgrade(this.id)"><br><strong>Extra Block(10 by 20)</strong></div>
+            <div id="b4" onclick="levelUpgrade(this.id)"><br><strong>Faster Level Bonus(Skip next bonus)</strong></div>
+            <div id="b5" onclick="levelUpgrade(this.id)"><br><strong>Extra Fall Bonus(+2)</strong></div>
+            <div id="b6" onclick="levelUpgrade(this.id)"><br><strong>Free Upgrade(Lvl. under 5)</strong></div>
         </div>
         <!--Change character skins, background themes-->
         <div class="themeColor" id="showAchievement">

@@ -841,6 +841,8 @@ document.getElementById("b6").addEventListener("mouseleave",function(){
 });
 
 //Use background color to determine upgrade or not when click
+var levelUpgradeNum=10;
+var skipBonus=false;
 function game(){
     let previousHeight=recordHeight;
     for(let i=0;i<allBlock.length;i++){
@@ -916,10 +918,11 @@ function game(){
             xp++;
         }
         //Gives bonus if reach new levels of a factor of 10
-        if(level%10==1){
+        if(level%10==levelUpgradeNum-9&&!skipBonus){
             //Show announcement, player can choose the upgrade they want, un-pause after clicking/choosing power up
             pause=true;
             levelUpPage.style.bottom="17.5%";
+            skipBonus=false;
         }
     }
     document.getElementById("recordHeight").innerHTML=Math.abs(max-grid.offsetHeight-addHeight);
@@ -975,7 +978,7 @@ function goTop(){
 }
 //Pauses the game if button pressed
 function pauseGame(){
-    if(levelUpPage.style.bottom!="25%"){
+    if(levelUpPage.style.bottom!="17.5%"){
         if(!pause){
             pause=true;
         } else{
@@ -984,8 +987,38 @@ function pauseGame(){
     }
 }
 //Level upgrades
+var freeUpgrade=false;
 function levelUpgrade(id){
+    switch(id){
+        case "b1":
+            xp++;
+            break;
+        case "b2":
 
+            break;
+        case "b3":
+
+            break;
+        case "b4":
+            levelUpgradeNum--;
+            skipBonus=true;
+            break;
+        case "b5":
+            bonusProgress+=2;
+            break;
+        case "b6":
+            freeUpgrade=true;
+            break;
+        default:
+            break;
+    }
+    levelUpPage.style.bottom="100%"
+    pause=false;
+}
+var pic=document.getElementsByClassName("upgradePics");
+for(let i=0;i<pic.length;i++){
+    pic[i].style.width=pic[i].offsetWidth*0.75+"px";
+    pic[i].style.height=pic[i].offsetHeight*0.75+"px";
 }
 //Shows tooltip when over question span
 var tooltip=document.getElementById("tooltip");
