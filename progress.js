@@ -37,7 +37,7 @@ var blockType="Regular";
 var gameTime=22;
 var pause=false;
 //Let 1000 as default
-var progressTime=50;
+var progressTime=1000;
 var progressAdd=1;
 var bonusProgress=5;
 //Determines the probability of winning a bonus
@@ -815,25 +815,41 @@ document.getElementById("b3").addEventListener("mouseleave",function(){
     document.getElementById("b3").style.backgroundColor="transparent";
     document.getElementById("b3").style.color="white";
 });
+//Change to red when levelnum==1
 document.getElementById("b4").addEventListener("mouseover",function(){
-    document.getElementById("b4").style.backgroundColor="rgba(255, 255, 255, 0.65)";
-    document.getElementById("b4").style.color="black";
+    if(levelUpgradeNum!=1){
+        document.getElementById("b4").style.backgroundColor="rgba(255, 255, 255, 0.65)";
+        document.getElementById("b4").style.color="black";
+    } else{
+        document.getElementById("b4").style.backgroundColor="rgba(255, 75, 75, 0.65)";
+        document.getElementById("b4").style.color="white";
+    }
 });
 document.getElementById("b4").addEventListener("mouseleave",function(){
     document.getElementById("b4").style.backgroundColor="transparent";
     document.getElementById("b4").style.color="white";
 });
 document.getElementById("b5").addEventListener("mouseover",function(){
-    document.getElementById("b5").style.backgroundColor="rgba(255, 255, 255, 0.65)";
-    document.getElementById("b5").style.color="black";
+    if(bonusProgress!=45){
+        document.getElementById("b5").style.backgroundColor="rgba(255, 255, 255, 0.65)";
+        document.getElementById("b5").style.color="black";
+    } else{
+        document.getElementById("b5").style.backgroundColor="rgba(255, 75, 75, 0.65)";
+        document.getElementById("b5").style.color="white";
+    }
 });
 document.getElementById("b5").addEventListener("mouseleave",function(){
     document.getElementById("b5").style.backgroundColor="transparent";
     document.getElementById("b5").style.color="white";
 });
 document.getElementById("b6").addEventListener("mouseover",function(){
-    document.getElementById("b6").style.backgroundColor="rgba(255, 255, 255, 0.65)";
-    document.getElementById("b6").style.color="black";
+    if(xp>=3){
+        document.getElementById("b6").style.backgroundColor="rgba(255, 255, 255, 0.65)";
+        document.getElementById("b6").style.color="black";
+    } else{
+        document.getElementById("b6").style.backgroundColor="rgba(255, 75, 75, 0.65)";
+        document.getElementById("b6").style.color="white";
+    }
 });
 document.getElementById("b6").addEventListener("mouseleave",function(){
     document.getElementById("b6").style.backgroundColor="transparent";
@@ -842,6 +858,7 @@ document.getElementById("b6").addEventListener("mouseleave",function(){
 
 //Use background color to determine upgrade or not when click
 var levelUpgradeNum=10;
+var addLevel=0;
 var skipBonus=false;
 function game(){
     let previousHeight=recordHeight;
@@ -913,16 +930,21 @@ function game(){
     if(previousHeight<recordHeight){
         xp++;
         level++;
+        addLevel++;
         //Use randomChance for the randomBonus
         if(100-randomChance>=chance){
             xp++;
         }
         //Gives bonus if reach new levels of a factor of 10
-        if(level%10==levelUpgradeNum-9&&!skipBonus){
+        if(levelUpgradeNum/addLevel==1&&!skipBonus){
             //Show announcement, player can choose the upgrade they want, un-pause after clicking/choosing power up
             pause=true;
             levelUpPage.style.bottom="17.5%";
+            addLevel=0;
+        }
+        if(levelUpgradeNum/addLevel==1){
             skipBonus=false;
+            addLevel=0;
         }
     }
     document.getElementById("recordHeight").innerHTML=Math.abs(max-grid.offsetHeight-addHeight);
@@ -987,33 +1009,52 @@ function pauseGame(){
     }
 }
 //Level upgrades
-var freeUpgrade=false;
+var platformBlock=false;
+var createWidthBlock=false;
+var createHeightBlock=false;
 function levelUpgrade(id){
     switch(id){
         case "b1":
             xp++;
+            levelUpPage.style.bottom="100%"
+            pause=false;
             break;
         case "b2":
-
+            createWidthBlock=true;
+            levelUpPage.style.bottom="100%"
+            pause=false;
             break;
         case "b3":
-
+            createHeightBlock=true;
+            levelUpPage.style.bottom="100%"
+            pause=false;
             break;
         case "b4":
-            levelUpgradeNum--;
-            skipBonus=true;
+            if(levelUpgradeNum>=2){
+                levelUpgradeNum--;
+                skipBonus=true;
+                levelUpPage.style.bottom="100%"
+                pause=false;
+            }
             break;
         case "b5":
-            bonusProgress+=2;
+            if(bonusProgress!=45){
+                bonusProgress+=2;
+                levelUpPage.style.bottom="100%"
+                pause=false;
+            }
             break;
         case "b6":
-            freeUpgrade=true;
+            if(xp>=3){
+                xp-=3;
+                platformBlock=true;
+                levelUpPage.style.bottom="100%"
+                pause=false;
+            }
             break;
         default:
             break;
     }
-    levelUpPage.style.bottom="100%"
-    pause=false;
 }
 var pic=document.getElementsByClassName("upgradePics");
 for(let i=0;i<pic.length;i++){
@@ -1353,7 +1394,7 @@ setInterval(function(){
         //Can't directly change interval time
         resetBar++;
         //maybe 4,5 idk why keep decreasing speed, maybe for more things to check
-        if(resetBar>=progressTime/6){
+        if(resetBar>=progressTime/4){
             progressBar.value+=progressAdd;
             resetBar=0;
         }
@@ -1365,6 +1406,19 @@ setInterval(function(){
             allBlock.push(new Block(Math.floor(Math.random()*(grid.offsetWidth-blockSize)),-blockHeight));
             //Reset progress
             progressBar.value=0;
+        }
+        if(createWidthBlock){
+            allBlock.push(new Block(Math.floor(Math.random()*(grid.offsetWidth-20)),-10,true,20,10));
+            createWidthBlock=false;
+        }
+        if(createHeightBlock){
+            allBlock.push(new Block(Math.floor(Math.random()*(grid.offsetWidth-10)),-20,true,10,20));
+            createHeightBlock=false;
+        }
+        if(platformBlock){
+            //See if want to make platform have another unique type
+            allBlock.push(new Block(0,-50,true,grid.offsetWidth,50,2,"Regular"));
+            platformBlock=false;
         }
     }
 });
@@ -1455,21 +1509,24 @@ setInterval(function(){
                 break;
         }
     }
+    //Updates the block's width/height on blockInfo page
+    document.getElementById("blockWidth").innerHTML=blockSize;
+    document.getElementById("blockHeight").innerHTML=blockHeight;
+    document.getElementById("xp").innerHTML=xp;
+    document.getElementById("level").innerHTML=level;
     if(!pause){
-        //Updates the block's width/height on blockInfo page
-        document.getElementById("blockWidth").innerHTML=blockSize;
-        document.getElementById("blockHeight").innerHTML=blockHeight;
-        document.getElementById("xp").innerHTML=xp;
-        document.getElementById("level").innerHTML=level;
         drawBlock();
         drawBlockType();
         //document.getElementById("h").innerHTML=allBlock[0].type;
     }
     game();
     drawGame();
+    //document.getElementById("h").innerHTML=levelUpgradeNum+""+skipBonus;
 },gameTime);
 //Can make block fall faster, change block width/height, make progress run faster, random block x less, add block color/page theme
 //Can consider adding tiny screens at sides, one to see block and another for height
 //Can press something to show height on the grid, like gridlines
 //Maybe change fasterfall to random bonus chance, bonus can be progress or xp, use text to show
 //Maybe every 5 or 10 level can have a free upgrade or xp gain
+//See if want to change text color whn dark theme
+//See if should make extra block upgrade larger to match with the height arrows

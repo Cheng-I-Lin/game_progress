@@ -378,7 +378,6 @@ body{
     text-align: center;
     color: white;
     font-size: 1.5em;
-    border-radius: 10%;
 }
 #b1{
     position: absolute;
@@ -435,5 +434,5 @@ body{
     font-size: 0.75em;
 }
 #h{
-    background-color: rgb(211, 53, 32);
+    background-color: rgb(238, 98, 80);
 }
